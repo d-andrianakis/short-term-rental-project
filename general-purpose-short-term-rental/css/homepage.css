@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+.homepage-hero-swiper .swiper-wrapper {
+    @apply max-w-96;
+}
