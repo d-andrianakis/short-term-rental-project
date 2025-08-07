@@ -1,6 +1,7 @@
 "use server";
 import { db } from "@/db/drizzle";
 import { property } from "@/db/schema";
+import Link from 'next/link'
 
 export default async function FeaturedListings() {
     const result = await db.select().from(property);
@@ -21,8 +22,7 @@ export default async function FeaturedListings() {
             <ul>
                 {properties.map((prop) => (
                     <li key={prop.id}>
-                        {prop.name}
-                        {prop.identifier}
+                        <Link href={`/${prop.slug}`} >{prop.name}</Link>
                     </li>
                 ))}
             </ul>
