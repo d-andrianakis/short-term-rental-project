@@ -4,6 +4,7 @@ import {
   timestamp,
   boolean,
   integer,
+  smallint
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
@@ -55,6 +56,23 @@ export const account = pgTable("account", {
 
 export const verification = pgTable("verification", {
   id: text("id").primaryKey(),
+  identifier: text("identifier").notNull(),
+  value: text("value").notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").$defaultFn(
+    () => /* @__PURE__ */ new Date(),
+  ),
+  updatedAt: timestamp("updated_at").$defaultFn(
+    () => /* @__PURE__ */ new Date(),
+  ),
+});
+
+
+export const property = pgTable("property", {
+  id: text("id").primaryKey(),
+  name: text("value").notNull(),
+  slug: text("slug"),
+  status: boolean(),
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
   expiresAt: timestamp("expires_at").notNull(),
