@@ -7,6 +7,8 @@ import "../css/homepage.css";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
 
+import { Toaster } from "@/components/ui/sonner"
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -35,6 +37,7 @@ export default function RootLayout({
         <Header/>
         {children}
         <Footer/>
+        <Toaster />
       </body>
     </html>
   );
