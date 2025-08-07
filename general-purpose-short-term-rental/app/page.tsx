@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import HeroSlider from "@/components/home/hero-slider";
+import FeaturedListings from "@/components/home/featured-listings";
 
 export default function Home() {
   return (
@@ -9,6 +10,10 @@ export default function Home() {
 
         <div className="w-full">
           <HeroSlider/>
+        </div>
+
+        <div className="all-listings">
+            <FeaturedListings />
         </div>
       </main>
     </div>
