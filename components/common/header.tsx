@@ -1,4 +1,5 @@
 import SignoutButton from "@/components/common/signout";
+import Link from "next/link";
 
 export default function Header() {
     return (
@@ -7,19 +8,19 @@ export default function Header() {
         <nav>
             <ul className="flex space-x-4">
             <li>
-                <a href="/" className="hover:text-gray-400">
+                <Link href="/" className="hover:text-gray-400">
                 Home
-                </a>
+                </Link>
             </li>
             <li>
-                <a href="/about" className="hover:text-gray-400">
+                <Link href="/about" className="hover:text-gray-400">
                 About
-                </a>
+                </Link>
             </li>
             <li>
-                <a href="/contact" className="hover:text-gray-400">
+                <Link href="/contact" className="hover:text-gray-400">
                 Contact
-                </a>
+                </Link>
             </li>
             </ul>
         </nav>
