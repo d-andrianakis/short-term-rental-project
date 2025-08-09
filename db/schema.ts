@@ -70,7 +70,7 @@ export const verification = pgTable("verification", {
 
 export const property = pgTable("property", {
   id: text("id").primaryKey(),
-  name: text("value").notNull(),
+  name: text("name").notNull(),
   slug: text("slug"),
   status: boolean(),
   identifier: text("identifier").notNull(),
