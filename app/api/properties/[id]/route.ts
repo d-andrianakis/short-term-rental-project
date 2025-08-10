@@ -9,3 +9,9 @@ export async function DELETE(req: Request, context: { params: Promise<{ id: stri
     await db.delete(property).where(eq(property.id, Number(id)));
     return NextResponse.json({ success: true });
 }
+
+export async function GET(req: Request, context: { params: Promise<{ id: string }> }) {
+    const { id } = await context.params;
+    await db.select().from(property).where(eq(property.id, Number(id)));
+    return NextResponse.json({ success: true });
+}
