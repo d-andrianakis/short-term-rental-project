@@ -12,6 +12,6 @@ export async function DELETE(req: Request, context: { params: Promise<{ id: stri
 
 export async function GET(req: Request, context: { params: Promise<{ id: string }> }) {
     const { id } = await context.params;
-    await db.select().from(property).where(eq(property.id, Number(id)));
-    return NextResponse.json({ success: true });
+    const propertyData = await db.select().from(property).where(eq(property.id, Number(id)));
+    return NextResponse.json(propertyData.length ? propertyData[0] : null);
 }
