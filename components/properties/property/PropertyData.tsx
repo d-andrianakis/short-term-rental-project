@@ -1,4 +1,3 @@
-// components/properties/property/PropertyData.tsx
 import { db } from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { property } from "@/db/schema";
