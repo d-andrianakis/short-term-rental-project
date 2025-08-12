@@ -4,7 +4,8 @@ import {
   timestamp,
   boolean,
   integer,
-  smallint
+  smallint,
+  serial
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
@@ -65,6 +66,16 @@ export const verification = pgTable("verification", {
   updatedAt: timestamp("updated_at").$defaultFn(
     () => /* @__PURE__ */ new Date(),
   ),
+});
+
+export const settings = pgTable("settings", {
+  id: serial("id").primaryKey(),
+  fileName: text("file_name").notNull(),
+  originalName: text("original_name").notNull(),
+  filePath: text("file_path").notNull(),
+  fileSize: integer("file_size").notNull(),
+  mimeType: text("mime_type").notNull(),
+  uploadedAt: timestamp("uploaded_at").defaultNow().notNull(),
 });
 
 
