@@ -6,6 +6,7 @@ import "../css/homepage.css";
 
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
+import { Breadcrumbs } from "@/components/common/breadcrumbs";
 
 import { Toaster } from "@/components/ui/sonner"
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header/>
+        <Breadcrumbs />
         {children}
         <Footer/>
         <Toaster />
