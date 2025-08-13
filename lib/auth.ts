@@ -1,5 +1,5 @@
 import { db } from "@/db/drizzle";
-import { schema } from "../db/schema";
+import { schema } from "@/db/schema";
 import { betterAuth } from "better-auth";
 import { admin } from "better-auth/plugins"
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
