@@ -3,6 +3,8 @@ import Image from "next/image";
 import HeroSlider from "@/components/home/hero-slider";
 import FeaturedListings from "@/components/home/featured-listings";
 
+import HomepageGallery from "@/components/home/homepage-gallery"
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home() {
@@ -27,8 +29,32 @@ export default function Home() {
             <TabsContent value="city">Todo: fill with swiper content</TabsContent>
             <TabsContent value="quiet">Todo: fill with different swiper content</TabsContent>
           </Tabs>
-          
         </div>
+
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Gallery Variations</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                See different ways to display your gallery content
+              </p>
+            </div>
+
+            <div className="space-y-16 max-w-4xl mx-auto">
+              {/* Slide Effect Gallery */}
+              <div>
+                <h3 className="text-xl font-semibold mb-4">Slide Effect</h3>
+                <HomepageGallery effect="slide" autoplay={false} showCaptions={false} className="rounded-xl" />
+              </div>
+
+              {/* Fade Effect Gallery */}
+              <div>
+                <h3 className="text-xl font-semibold mb-4">Fade Effect with Captions</h3>
+                <HomepageGallery effect="fade" autoplay={true} showCaptions={true} className="rounded-xl" />
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   );
