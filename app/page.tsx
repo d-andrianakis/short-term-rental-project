@@ -12,15 +12,17 @@ export default function Home() {
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen py-6 gap-16 sm:py-10">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start max-w-[1600px] w-full">
 
-        <div className="w-full">
-          <HeroSlider/>
-        </div>
+        <section className="w-full">
+          <div className="w-full">
+            <HeroSlider/>
+          </div>  
+        </section>
 
-        <div className="all-listings">
+        <section className="all-listings">
             <FeaturedListings />
-        </div>
+        </section>
 
-        <div className="homepage-tabs">
+        <section className="homepage-tabs mx-auto">
           <Tabs defaultValue="city" className="w-[400px]">
             <TabsList>
               <TabsTrigger value="city">City properties</TabsTrigger>
@@ -29,9 +31,9 @@ export default function Home() {
             <TabsContent value="city">Todo: fill with swiper content</TabsContent>
             <TabsContent value="quiet">Todo: fill with different swiper content</TabsContent>
           </Tabs>
-        </div>
+        </section>
 
-        <section className="py-20">
+        <section className="py-20 mx-auto">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">Gallery Variations</h2>
