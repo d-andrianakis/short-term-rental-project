@@ -45,6 +45,7 @@ export async function POST(request: NextRequest) {
     const dbResult = await db
       .insert(settings)
       .values({
+        key: "hero_slider",
         fileName: filename,
         originalName: file.name,
         filePath: `/uploads/${filename}`,

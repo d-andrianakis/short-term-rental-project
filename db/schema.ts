@@ -73,8 +73,13 @@ export const verification = pgTable("verification", {
   ),
 });
 
+
+/**
+   @todo: split settings into multiple tables
+**/
 export const settings = pgTable("settings", {
   id: serial("id").primaryKey(),
+  key: text("key").notNull(),
   fileName: text("file_name").notNull(),
   originalName: text("original_name").notNull(),
   filePath: text("file_path").notNull(),
@@ -83,7 +88,9 @@ export const settings = pgTable("settings", {
   uploadedAt: timestamp("uploaded_at").defaultNow().notNull(),
 });
 
-
+/**
+   @todo: split properties into multiple tables. One will contain basic info and the other will contain detailed info.
+**/
 export const property = pgTable("property", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
