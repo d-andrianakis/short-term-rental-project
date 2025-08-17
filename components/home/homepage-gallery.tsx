@@ -118,7 +118,7 @@ export default function HomepageGallery({
         {galleryItems.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="relative aspect-[16/9] bg-muted">
-              <img
+              {/* <img
                 src={item.imageUrl || "/placeholder.svg"}
                 alt={item.caption}
                 className="w-full h-full object-cover"
@@ -126,7 +126,7 @@ export default function HomepageGallery({
                   const target = e.target as HTMLImageElement
                   target.src = `/placeholder.svg?height=400&width=800&text=Image+Not+Found`
                 }}
-              />
+              /> */}
 
               {showCaptions && item.caption && (
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6">
