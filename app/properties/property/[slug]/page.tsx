@@ -3,7 +3,6 @@ import { eq } from "drizzle-orm";
 import { property } from "@/db/schema";
 
 import React, { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
 import PropertyData from "@/components/properties/property/PropertyData";
 import Loading from "./loading";
 
