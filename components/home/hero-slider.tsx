@@ -9,34 +9,42 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Image from "next/image";
+import HomeSlider from "@/components/common/loading/homeSlider";
 
 export default function App() {
   const [heroImages, setHeroImages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     async function fetchHeroImages() {
       try {
         const res = await fetch("/api/homepage/hero");
         const data = await res.json();
 
-
         if (data && data.length) {
-          console.log("Parsed hero images:", data);
-          const images = data;
-          
-          setHeroImages(images);
+          setHeroImages(data);
         } else {
           setHeroImages([]);
         }
       } catch (err) {
         setHeroImages([]);
       } finally {
-        setLoading(false);
+        // Ensure skeleton shows for at least 1500ms
+        timeoutId = setTimeout(() => setLoading(false), 1500);
       }
     }
     fetchHeroImages();
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, []);
+
+  if (loading) {
+    return <HomeSlider />;
+  }
 
   return (
     <Swiper
@@ -48,11 +56,8 @@ export default function App() {
       className="homepage-hero-swiper"
       style={{ height: "100vh" }}
     >
-      {loading ? (
-        <SwiperSlide>Loading...</SwiperSlide>
-      ) : heroImages.length > 0 ? (
+      {heroImages.length > 0 ? (
         heroImages.map((img, idx) => (
-          console.log("img:", img),
           <SwiperSlide key={idx}>
             <Image src={img.filePath} alt={img.originalName} layout="fill" objectFit="cover" />
           </SwiperSlide>
