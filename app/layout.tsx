@@ -10,6 +10,8 @@ import { Breadcrumbs } from "@/components/common/breadcrumbs";
 
 import { Toaster } from "@/components/ui/sonner"
 
+import {NextIntlClientProvider} from 'next-intl';
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -35,13 +37,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header/>
-          <div className="container mx-auto">
-            <Breadcrumbs />
-            {children}
-          </div>
-        <Footer/>
-        <Toaster />
+        <NextIntlClientProvider>
+          <Header/>
+            <div className="container mx-auto">
+              <Breadcrumbs />
+              {children}
+            </div>
+          <Footer/>
+          <Toaster />
+        </NextIntlClientProvider>
       </body>
     </html>
   );
