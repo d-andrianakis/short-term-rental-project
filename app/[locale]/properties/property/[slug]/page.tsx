@@ -8,11 +8,22 @@ import Loading from "./loading";
 
 import { Metadata } from 'next';
 
+import {NextIntlClientProvider} from 'next-intl';
+import { hasLocale } from 'next-intl';
+import { routing } from '../../../../../i18n/routing';
+import { notFound } from "next/navigation";
+
+
 export async function generateMetadata(
-  { params }: { params: { slug: string } }
+  { params }: { params: { locale:string, slug: string } }
 ): Promise<Metadata> {
   const awaitedParams = await params;
   const slugParam = awaitedParams.slug;
+  const locale = awaitedParams.locale;
+
+  if (!hasLocale(routing.locales, locale)) {
+    return notFound();
+  }
 
   const propertyData = await db.select().from(property).where(eq(property.slug, slugParam));
 
