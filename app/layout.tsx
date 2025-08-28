@@ -1,3 +1,5 @@
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
@@ -43,26 +45,28 @@ export default async function RootLayout({
   const { locale } = await params;
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-          <NextIntlClientProvider>
-            <Header/>
-              <div className="container mx-auto">
-                <Breadcrumbs />
-                {children}
-              </div>
-            <Footer/>
-            <Toaster />
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <NuqsAdapter>
+          <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+            <NextIntlClientProvider>
+              <Header/>
+                <div className="container mx-auto">
+                  <Breadcrumbs />
+                  {children}
+                </div>
+              <Footer/>
+              <Toaster />
+            </NextIntlClientProvider>
+          </ThemeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SignoutButton from "@/components/common/signout";
 import { ModeToggle } from "@/components/common/mode-toggle";
+import Search from "@/components/common/search";
 
 export default function Header() {
     return (
@@ -25,6 +26,7 @@ export default function Header() {
                 </li>
                 </ul>
             </nav>
+            <Search />
             <SignoutButton />
             <ModeToggle />
         </header>
