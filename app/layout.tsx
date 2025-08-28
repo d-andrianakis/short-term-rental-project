@@ -8,9 +8,14 @@ import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 
+import { ThemeProvider } from "@/components/theme-provider"
+
 import { Toaster } from "@/components/ui/sonner"
 
 import {NextIntlClientProvider} from 'next-intl';
+import { hasLocale } from 'next-intl';
+import { routing } from '../i18n/routing';
+import { notFound } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,25 +32,37 @@ export const metadata: Metadata = {
   description: "Short term rental project built with Next.js, Typescript, Tailwind, Better-auth, Prisma and more.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+
+  const { locale } = await params;
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextIntlClientProvider>
-          <Header/>
-            <div className="container mx-auto">
-              <Breadcrumbs />
-              {children}
-            </div>
-          <Footer/>
-          <Toaster />
-        </NextIntlClientProvider>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+          <NextIntlClientProvider>
+            <Header/>
+              <div className="container mx-auto">
+                <Breadcrumbs />
+                {children}
+              </div>
+            <Footer/>
+            <Toaster />
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
