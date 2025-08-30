@@ -9,21 +9,21 @@ export default function Header() {
             <h1 className="text-2xl">My App</h1>
             <nav>
                 <ul className="flex space-x-4">
-                <li>
-                    <Link href="/" className="hover:text-gray-400">
-                    Home
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/about" className="hover:text-gray-400">
-                    About
-                    </Link>
-                </li>
-                <li>
-                    <Link href="/contact" className="hover:text-gray-400">
-                    Contact
-                    </Link>
-                </li>
+                    <li>
+                        <Link href="/" className="hover:text-gray-400">
+                        Home
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/about" className="hover:text-gray-400">
+                        About
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/contact" className="hover:text-gray-400">
+                        Contact
+                        </Link>
+                    </li>
                 </ul>
             </nav>
             <Search />
