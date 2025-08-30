@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { DateTimePicker24h } from "@/components/ui/datetime-picker-24h";
+import { DateTimePicker24hForm } from "@/components/ui/datetime-picker-24h";
 
 import { useQueryState } from "nuqs";
 
@@ -12,7 +12,7 @@ export default function Search() {
         <>
             <div className="w-fit flex">
                 <Input type="text" value={city} onChange={(e) => setCity(e.target.value || null)} placeholder="Search..." className="min-w-52 max-w-md" />
-                <DateTimePicker24h />
+                <DateTimePicker24hForm />
             </div>
         </>  
     )
