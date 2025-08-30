@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useQueryState } from "nuqs";
+import { useRouter } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,6 +41,7 @@ const FormSchema = z.object({
 export function SearchForm() {
   const [city, setCity] = useQueryState("city", { defaultValue: "" });
   const [dateTime, setDateTime] = useQueryState("datetime", { defaultValue: "" });
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -47,6 +49,11 @@ export function SearchForm() {
  
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast.success(`Selected date and time: ${format(data.time, "PPPP HH:mm")}`);
+
+    const params = new URLSearchParams();
+    if (city) params.set("city", city);
+    if (data.time) params.set("datetime", data.time.toISOString());
+    router.push(`/properties?${params.toString()}`);
   }
 
   useEffect(() => {
