@@ -1,5 +1,8 @@
 {
   "HomePage": {
     "title": "Hello world!"
+  }, 
+  "Properties": {
+    "no_properties": "No properties found!"
   }
 }
