@@ -3,8 +3,8 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
-import "./globals.css";
-import "../css/homepage.css";
+import "../globals.css";
+import "../../css/homepage.css";
 
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
@@ -16,8 +16,10 @@ import { Toaster } from "@/components/ui/sonner"
 
 import {NextIntlClientProvider} from 'next-intl';
 import { hasLocale } from 'next-intl';
-import { routing } from '../i18n/routing';
+import { routing } from '../../i18n/routing';
 import { notFound } from "next/navigation";
+
+import { headers } from 'next/headers';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,9 +45,10 @@ export default async function RootLayout({
 }>) {
 
   const { locale } = await params;
+  console.log(`layout: ${locale}`)
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={ locale } suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
