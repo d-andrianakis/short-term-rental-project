@@ -6,16 +6,9 @@ import { routing } from './routing';
 export default getRequestConfig(async ({ requestLocale }) => {
   const requested = await requestLocale;
 
-  // const store = await cookies();
-  // const locale = store.get('locale')?.value || 'en';
-
-  // console.log("request.ts:" + requested);
-
   const locale = hasLocale(routing.locales, requested)
     ? requested
     : routing.defaultLocale;
-
-  console.log(locale);
  
   return {
     locale,
