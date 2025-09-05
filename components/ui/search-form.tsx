@@ -170,7 +170,7 @@ export function SearchForm() {
                       </ScrollArea>
                       <ScrollArea className="w-64 sm:w-auto">
                         <div className="flex sm:flex-col p-2">
-                          {Array.from({ length: 12 }, (_, i) => i * 5).map(
+                          {Array.from({ length: 2 }, (_, i) => i * 30).map(
                             (minute) => (
                               <Button
                                 key={minute}
