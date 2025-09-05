@@ -1,36 +1,35 @@
-'use client'
+import { loadSearchParams } from './search-params'
+import type { SearchParams } from 'nuqs/server'
 
-import {useTranslations} from 'next-intl';
-import { useSearchParams } from 'next/navigation'
- 
-export default function SearchBar() {
-    
-    const t = useTranslations("Properties");
+type PageProps = {
+  searchParams: Promise<SearchParams>
+}
 
-    const searchParams = useSearchParams()
-    
-    const city = searchParams.get('city')
-    const datetime = searchParams.get('datetime')
-    
-    // URL -> `/dashboard?search=my-project`
-    // `search` -> 'my-project'
-    return <>
-        { city &&
-            <div>
-                City: {city}
-            </div>
-        }
+export default async function Page({ searchParams }: PageProps) {
+  const { city, datetime } = await loadSearchParams(searchParams)
 
-        { datetime && 
-            <div>
-                Datetime: {datetime}
-            </div>
-        }
+  console.log(city, datetime);
 
-        { !city && !datetime && 
-            <div>
-                <span>{ t('no_properties')}</span>
-            </div>
-        }
-    </>
+//   const results = await db
+//     .select()
+//     .from(properties)
+//     .where(city ? (properties.city.eq(city)) : undefined)
+
+  return (
+    <div>
+      {/* <SearchBar /> */}
+      <div>
+        <h2>Results</h2>
+        {/* {results.length > 0 ? (
+          <ul>
+            {results.map(p => (
+              <li key={p.id}>{p.name}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No properties found</p>
+        )} */}
+      </div>
+    </div>
+  )
 }
