@@ -1,35 +1,55 @@
-import { loadSearchParams } from './search-params'
+'use client'
+
+import { useEffect, useState } from "react";
+import { useQueryState } from 'nuqs'
+
+import {useTranslations} from 'next-intl';
+
+import getAvailableProperties from './get-available-properties';
+
 import type { SearchParams } from 'nuqs/server'
 
 type PageProps = {
   searchParams: Promise<SearchParams>
 }
 
-export default async function Page({ searchParams }: PageProps) {
-  const { city, datetime } = await loadSearchParams(searchParams)
+export default function SearchBar({ searchParams }: PageProps) {
+    const g = useTranslations("Global");
+    const t = useTranslations("Properties");
 
-  console.log(city, datetime);
+    const [availableProperties, setAvailableProperties] = useState<string | null>(null);
 
-//   const results = await db
-//     .select()
-//     .from(properties)
-//     .where(city ? (properties.city.eq(city)) : undefined)
+    const [loading, setLoading] = useState(false)
 
-  return (
-    <div>
-      {/* <SearchBar /> */}
-      <div>
-        <h2>Results</h2>
-        {/* {results.length > 0 ? (
-          <ul>
-            {results.map(p => (
-              <li key={p.id}>{p.name}</li>
-            ))}
-          </ul>
+    // const city = searchParams.get('city')
+    // const datetime = searchParams.get('datetime')
+
+    useEffect(() => {
+      loadAvailableProperties()
+    }, [])
+  
+    const loadAvailableProperties = async () => {
+      try {
+        setLoading(true)
+        const params = await searchParams
+        const items = await getAvailableProperties(params)
+        setAvailableProperties(items)
+      } catch (error) {
+        console.error("Failed to load gallery items:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    return (
+      <>
+        {loading ? (
+          <div>{g('loading') ?? 'Loading...'}</div>
+        ) : availableProperties ? (
+          <div>{availableProperties}</div>
         ) : (
-          <p>No properties found</p>
-        )} */}
-      </div>
-    </div>
-  )
+          <div>{t('no_properties')}</div>
+        )}
+      </>
+    )
 }

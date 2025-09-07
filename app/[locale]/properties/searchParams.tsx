@@ -1,4 +1,8 @@
-import { parseAsString, parseAsIsoDateTime, createLoader } from 'nuqs/server'
+import { 
+    parseAsString,
+    parseAsIsoDateTime,
+    createLoader 
+} from 'nuqs/server'
 
 // Describe your search params, and reuse this in useQueryStates / createSerializer:
 export const propertySearchParams = {
