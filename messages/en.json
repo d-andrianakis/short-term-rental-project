@@ -1,4 +1,7 @@
 {
+  "Global": {
+    "loading": "Loading..."
+  },
   "HomePage": {
     "title": "Hello world!"
   }, 
