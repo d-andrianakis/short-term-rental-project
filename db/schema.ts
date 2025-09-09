@@ -91,6 +91,12 @@ export const settings = pgTable("settings", {
 /**
    @todo: split properties into multiple tables. One will contain basic info and the other will contain detailed info.
 **/
+
+export const properties = pgTable("properties", {
+  id: text("id").primaryKey(),
+  city: text("city").notNull()
+});
+
 export const property = pgTable("property", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
@@ -107,11 +113,20 @@ export const property = pgTable("property", {
   ),
 });
 
+export const bookings = pgTable("bookings", {
+  id: serial("id").primaryKey(),
+  propertyId: integer("property_id").notNull(),
+  start: timestamp("start").notNull(),
+  end: timestamp("end").notNull(),
+})
+
 export const schema = {
   user,
   session,
   account,
   verification,
   settings,
+  properties,
   property,
+  bookings
 };
