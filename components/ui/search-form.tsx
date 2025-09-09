@@ -44,6 +44,7 @@ const FormSchema = z.object({
 export function SearchForm() {
   const [city, setCity] = useQueryState("city", { defaultValue: "" });
   const [dateTime, setDateTime] = useQueryState("datetime", { defaultValue: "" });
+  const [endDateTime, setEndDateTime] = useQueryState("endtime", { defaultValue: "" });
   const router = useRouter();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -56,7 +57,7 @@ export function SearchForm() {
     const params = new URLSearchParams();
     if (city) params.set("city", city);
     if (data.time) params.set("datetime", data.time.toISOString());
-    if (data.time) params.set("endtime", data.endtime.toISOString());
+    if (data.endtime) params.set("endtime", data.endtime.toISOString());
     router.push(`/properties?${params.toString()}`);
   }
 
@@ -67,7 +68,13 @@ export function SearchForm() {
         form.setValue("time", parsed);
       }
     }
-  }, [dateTime, form]);
+    if (endDateTime) {
+      const parsedEndTime = new Date(endDateTime);
+      if (!isNaN(parsedEndTime.getTime())) {
+        form.setValue("endtime", parsedEndTime);
+      }
+    }
+  }, [dateTime, endDateTime, form]);
 
  
   function handleDateSelect(date: Date | undefined) {
@@ -92,16 +99,16 @@ export function SearchForm() {
     setDateTime(newDate.toISOString());
   }
 
-  function handleEndDateSelect(date: Date | undefined) {
-    if (date) {
-      form.setValue("endtime", date);
-      setDateTime(date.toISOString());
+  function handleEndDateSelect(endtime: Date | undefined) {
+    if (endtime) {
+      form.setValue("endtime", endtime);
+      setEndDateTime(endtime.toISOString());
     }
   }
 
   function handleEndTimeChange(type: "hour" | "minute", value: string) {
-    const currentDate = form.getValues("endtime") || new Date();
-    const newEndDate = new Date(currentDate);
+    const currentDate2 = form.getValues("endtime") || new Date();
+    const newEndDate = new Date(currentDate2);
 
     if (type === "hour") {
       const hour = parseInt(value, 10);
@@ -111,7 +118,7 @@ export function SearchForm() {
     }
 
     form.setValue("endtime", newEndDate);
-    setDateTime(newEndDate.toISOString());
+    setEndDateTime(newEndDate.toISOString());
   }
  
   return (
