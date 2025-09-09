@@ -36,6 +36,9 @@ const FormSchema = z.object({
   time: z.date({
     required_error: "A date and time is required.",
   }),
+  endtime: z.date({
+    required_error: "An end date and time is required.",
+  }),
 });
  
 export function SearchForm() {
@@ -53,6 +56,7 @@ export function SearchForm() {
     const params = new URLSearchParams();
     if (city) params.set("city", city);
     if (data.time) params.set("datetime", data.time.toISOString());
+    if (data.time) params.set("endtime", data.endtime.toISOString());
     router.push(`/properties?${params.toString()}`);
   }
 
@@ -87,8 +91,28 @@ export function SearchForm() {
     form.setValue("time", newDate);
     setDateTime(newDate.toISOString());
   }
-  
-  
+
+  function handleEndDateSelect(date: Date | undefined) {
+    if (date) {
+      form.setValue("endtime", date);
+      setDateTime(date.toISOString());
+    }
+  }
+
+  function handleEndTimeChange(type: "hour" | "minute", value: string) {
+    const currentDate = form.getValues("endtime") || new Date();
+    const newEndDate = new Date(currentDate);
+
+    if (type === "hour") {
+      const hour = parseInt(value, 10);
+      newEndDate.setHours(hour);
+    } else if (type === "minute") {
+      newEndDate.setMinutes(parseInt(value, 10));
+    }
+
+    form.setValue("endtime", newEndDate);
+    setDateTime(newEndDate.toISOString());
+  }
  
   return (
     <Form {...form}>
@@ -112,7 +136,7 @@ export function SearchForm() {
           name="time"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Enter your date & time (24h)</FormLabel>
+              <FormLabel>Booking start</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -184,6 +208,105 @@ export function SearchForm() {
                                 className="sm:w-full shrink-0 aspect-square"
                                 onClick={() =>
                                   handleTimeChange("minute", minute.toString())
+                                }
+                              >
+                                {minute.toString().padStart(2, "0")}
+                              </Button>
+                            )
+                          )}
+                        </div>
+                        <ScrollBar
+                          orientation="horizontal"
+                          className="sm:hidden"
+                        />
+                      </ScrollArea>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
+              <FormDescription>
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="endtime"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Booking end</FormLabel>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-full pl-3 text-left font-normal",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value ? (
+                        format(field.value, "MM/dd/yyyy HH:mm")
+                      ) : (
+                        <span>MM/DD/YYYY HH:mm</span>
+                      )}
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <div className="sm:flex">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={handleEndDateSelect}
+                      initialFocus
+                    />
+                    <div className="flex flex-col sm:flex-row sm:h-[300px] divide-y sm:divide-y-0 sm:divide-x">
+                      <ScrollArea className="w-64 sm:w-auto">
+                        <div className="flex sm:flex-col p-2">
+                          {Array.from({ length: 24 }, (_, i) => i)
+                            .reverse()
+                            .map((hour) => (
+                              <Button
+                                key={hour}
+                                size="icon"
+                                variant={
+                                  field.value && field.value.getHours() === hour
+                                    ? "default"
+                                    : "ghost"
+                                }
+                                className="sm:w-full shrink-0 aspect-square"
+                                onClick={() =>
+                                  handleEndTimeChange("hour", hour.toString())
+                                }
+                              >
+                                {hour}
+                              </Button>
+                            ))}
+                        </div>
+                        <ScrollBar
+                          orientation="horizontal"
+                          className="sm:hidden"
+                        />
+                      </ScrollArea>
+                      <ScrollArea className="w-64 sm:w-auto">
+                        <div className="flex sm:flex-col p-2">
+                          {Array.from({ length: 2 }, (_, i) => i * 30).map(
+                            (minute) => (
+                              <Button
+                                key={minute}
+                                size="icon"
+                                variant={
+                                  field.value &&
+                                  field.value.getMinutes() === minute
+                                    ? "default"
+                                    : "ghost"
+                                }
+                                className="sm:w-full shrink-0 aspect-square"
+                                onClick={() =>
+                                  handleEndTimeChange("minute", minute.toString())
                                 }
                               >
                                 {minute.toString().padStart(2, "0")}
