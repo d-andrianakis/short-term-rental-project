@@ -1,4 +1,4 @@
-import { type NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
 import { db } from "@/db/drizzle";
 import { bookings, properties } from "@/db/schema";
@@ -10,30 +10,56 @@ export async function GET(request: NextRequest) {
   const startTime = searchParams.get('startTime');
   const endTime = searchParams.get('endTime');
 
-  if (city && startTime && endTime)
+  function toTimestamp(datetimeStr: string): number {
+    return new Date(datetimeStr).getTime();
+  }
 
-    if (startTime < endTime) {
+  if (city && startTime && endTime) {
 
-      console.log("and here")
-      // const conflicting = await db
-      //   .select({ propertyId: bookings.propertyId })
-      //   .from(bookings)
-      //   .where(
-      //     and(
-      //       lt(bookings.start, startTime),  // booking starts before search ends
-      //       gt(bookings.end, endTime)  // booking ends after search starts
-      // ));
+    const startDate = new Date(startTime);
+    const endDate = new Date(endTime);
 
-      // const conflictingIds = conflicting.map(c => c.propertyId);
+    const startDateTimestamp = toTimestamp(startDate);
+    const endDateTimestamp = toTimestamp(endDate);
 
-      // console.log(conflictingIds)
+    console.log("first check")
 
-      // const available = await db
-      //   .select()
-      //   .from(properties)
-      //   .where(conflictingIds.length > 0
-      //     ? notInArray(properties.id, conflictingIds)
-      //     : undefined // if no conflicts, return all
-      // );
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+      return new Response('Invalid date format for startTime or endTime', { status: 400 });
+    }
+
+    console.log(startDateTimestamp)
+    console.log(endDateTimestamp)
+    if (startDateTimestamp >= endDateTimestamp) {
+      return new Response('startTime must be before endTime', { status: 400 });
+    }
+
+    console.log("b4 query")
+
+    // overlap when booking.start < searchEnd AND booking.end > searchStart
+    const conflicting = await db
+      .select({ propertyId: bookings.propertyId })
+      .from(bookings)
+      .where(
+        and(
+          lt(bookings.start, endDate),   // booking starts before search ends
+          gt(bookings.end, startDate)    // booking ends after search starts
+        )
+    );
+
+    console.log("after query")
+
+    const conflictingIds = conflicting.map(c => c.propertyId);
+    console.log(`conflicting ids ${conflictingIds}`)
+
+    const available = await db
+      .select()
+      .from(properties)
+      .where(conflictingIds.length > 0
+        ? notInArray(properties.id, conflictingIds)
+        : undefined // if no conflicts, return all
+    );
+
+    return NextResponse.json(available.length ? available : null);
   }
 }

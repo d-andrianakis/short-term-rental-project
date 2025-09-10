@@ -21,9 +21,6 @@ export default function SearchBar({ searchParams }: PageProps) {
 
     const [loading, setLoading] = useState(false)
 
-    // const city = searchParams.get('city')
-    // const datetime = searchParams.get('datetime')
-
     useEffect(() => {
       loadAvailableProperties()
     }, [])
@@ -45,8 +42,20 @@ export default function SearchBar({ searchParams }: PageProps) {
       <>
         {loading ? (
           <div>{g('loading') ?? 'Loading...'}</div>
-        ) : availableProperties ? (
-          <div>{availableProperties}</div>
+        ) : Array.isArray(availableProperties) && availableProperties.length > 0 ? (
+          <div>
+            {availableProperties.map((prop, idx) => (
+              <div key={prop.id ?? idx} style={{ borderBottom: '1px solid #eee', padding: '8px 0' }}>
+                <strong>{prop.title ?? prop.name ?? `Property ${idx + 1}`}</strong>
+                {prop.location?.city || prop.city ? (
+                  <div>{prop.location?.city ?? prop.city}</div>
+                ) : null}
+                <pre style={{ whiteSpace: 'pre-wrap', margin: '8px 0 0' }}>
+                  {JSON.stringify(prop, null, 2)}
+                </pre>
+              </div>
+            ))}
+          </div>
         ) : (
           <div>{t('no_properties')}</div>
         )}

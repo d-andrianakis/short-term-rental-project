@@ -5,8 +5,11 @@ import {
   boolean,
   integer,
   smallint,
-  serial
+  serial,
+  real,
+  varchar
 } from "drizzle-orm/pg-core";
+import { Varta } from "next/font/google";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -118,6 +121,8 @@ export const bookings = pgTable("bookings", {
   propertyId: integer("property_id").notNull(),
   start: timestamp("start").notNull(),
   end: timestamp("end").notNull(),
+  amount: real("amount").notNull(),
+  country: varchar("country").notNull()
 })
 
 export const schema = {
