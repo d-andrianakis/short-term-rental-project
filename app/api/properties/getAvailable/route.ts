@@ -34,8 +34,6 @@ export async function GET(request: NextRequest) {
       return new Response('startTime must be before endTime', { status: 400 });
     }
 
-    console.log("b4 query")
-
     // overlap when booking.start < searchEnd AND booking.end > searchStart
     const conflicting = await db
       .select({ propertyId: bookings.propertyId })
@@ -47,10 +45,7 @@ export async function GET(request: NextRequest) {
         )
     );
 
-    console.log("after query")
-
     const conflictingIds = conflicting.map(c => c.propertyId);
-    console.log(`conflicting ids ${conflictingIds}`)
 
     const available = await db
       .select()
