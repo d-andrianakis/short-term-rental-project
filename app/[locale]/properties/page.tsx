@@ -9,6 +9,8 @@ import getAvailableProperties from './get-available-properties';
 
 import type { SearchParams } from 'nuqs/server'
 
+import Filters from '@/components/properties/filters';
+
 type PageProps = {
   searchParams: Promise<SearchParams>
 }
@@ -40,25 +42,32 @@ export default function SearchBar({ searchParams }: PageProps) {
 
     return (
       <>
-        {loading ? (
-          <div>{g('loading') ?? 'Loading...'}</div>
-        ) : Array.isArray(availableProperties) && availableProperties.length > 0 ? (
-          <div>
-            {availableProperties.map((prop, idx) => (
-              <div key={prop.id ?? idx} style={{ borderBottom: '1px solid #eee', padding: '8px 0' }}>
-                <strong>{prop.title ?? prop.name ?? `Property ${idx + 1}`}</strong>
-                {prop.location?.city || prop.city ? (
-                  <div>{prop.location?.city ?? prop.city}</div>
-                ) : null}
-                <pre style={{ whiteSpace: 'pre-wrap', margin: '8px 0 0' }}>
-                  {JSON.stringify(prop, null, 2)}
-                </pre>
-              </div>
-            ))}
+        <div className="flex space-x-5">
+          <aside className="w-1/6">
+            <Filters properties={availableProperties} setProperties={setAvailableProperties} loading={loading}/>
+          </aside>
+          <div className="w-5/6">
+            {loading ? (
+            <div>{g('loading') ?? 'Loading...'}</div>
+          ) : Array.isArray(availableProperties) && availableProperties.length > 0 ? (
+            <div>
+              {availableProperties.map((prop, idx) => (
+                <div key={prop.id ?? idx} style={{ borderBottom: '1px solid #eee', padding: '8px 0' }}>
+                  <strong>{prop.title ?? prop.name ?? `Property ${idx + 1}`}</strong>
+                  {prop.location?.city || prop.city ? (
+                    <div>{prop.location?.city ?? prop.city}</div>
+                  ) : null}
+                  <pre style={{ whiteSpace: 'pre-wrap', margin: '8px 0 0' }}>
+                    {JSON.stringify(prop, null, 2)}
+                  </pre>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div>{t('no_properties')}</div>
+          )}
           </div>
-        ) : (
-          <div>{t('no_properties')}</div>
-        )}
+        </div>
       </>
     )
 }
