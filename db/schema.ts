@@ -123,7 +123,16 @@ export const bookings = pgTable("bookings", {
   end: timestamp("end").notNull(),
   amount: real("amount").notNull(),
   country: varchar("country").notNull()
-})
+});
+
+export const reviews = pgTable("reviews", {
+  id: serial("id").primaryKey(),
+  propertyId: integer("property_id").notNull(),
+  review: text("review"),
+  easeOfAccess: integer("ease_of_access").notNull(),
+  valueForMoney: integer("value_for_money").notNull(),
+  communication: integer("communication").notNull()
+});
 
 export const schema = {
   user,
@@ -133,5 +142,6 @@ export const schema = {
   settings,
   properties,
   property,
-  bookings
+  bookings,
+  reviews
 };
