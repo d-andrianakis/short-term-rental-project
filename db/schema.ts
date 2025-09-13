@@ -134,6 +134,14 @@ export const reviews = pgTable("reviews", {
   communication: integer("communication").notNull()
 });
 
+export const propery_attributes = pgTable("property_attributes", {
+  id: serial("id").primaryKey(),
+  propertyId: integer("property_id").notNull(),
+  filterable: boolean(),
+  text: varchar("text"),
+  applicable_countries: varchar("applicable_countries")
+});
+
 export const schema = {
   user,
   session,
@@ -143,5 +151,6 @@ export const schema = {
   properties,
   property,
   bookings,
-  reviews
+  reviews,
+  propery_attributes
 };

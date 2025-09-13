@@ -1,4 +1,4 @@
-// app/api/properties/route.ts
+// app/api/properties/getAvailable/route.ts
 import { db } from "@/db/drizzle";
 import { property } from "@/db/schema";
 import { NextResponse } from "next/server";
