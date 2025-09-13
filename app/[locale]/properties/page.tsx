@@ -27,7 +27,7 @@ export default function SearchBar({ searchParams }: PageProps) {
       loadAvailableProperties()
     }, [])
   
-    const loadAvailableProperties = async () => {
+    const loadAvailableProperties = async (filter?: string) => {
       try {
         setLoading(true)
         const params = await searchParams
@@ -44,7 +44,10 @@ export default function SearchBar({ searchParams }: PageProps) {
       <>
         <div className="flex space-x-5">
           <aside className="w-1/6">
-            <Filters properties={availableProperties} setProperties={setAvailableProperties} loading={loading}/>
+            <Filters
+              loading={loading}
+              onFilter={loadAvailableProperties} // pass callback
+            />
           </aside>
           <div className="w-5/6">
             {loading ? (
