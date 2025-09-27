@@ -4,16 +4,19 @@ import { db } from "@/db/drizzle";
 import { propery_attributes, properties } from "@/db/schema";
 import { eq, and, inArray } from 'drizzle-orm';
  
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
 
+    const data = await request.json();
+    
     const searchParams = request.nextUrl.searchParams;
     const availablePropertyIdsParam = searchParams.get('availablePropertyIds');
 
     // Parse param into an array of numbers (or strings depending on your schema)
-    let availablePropertyIdsArray: number[] = [];
-    if (availablePropertyIdsParam) {
+    let availablePropertyIdsArray: number[] = data;
+    if (data) {
       try {
-        const parsed = JSON.parse(availablePropertyIdsParam);
+        //const parsed = JSON.parse(availablePropertyIdsParam);
+        const parsed = data;
         if (Array.isArray(parsed)) {
           availablePropertyIdsArray = parsed.map((v: any) => Number(v));
         } else {
