@@ -6,12 +6,8 @@ import { eq, and, inArray } from 'drizzle-orm';
  
 export async function GET(request: NextRequest) {
 
-  console.log('herrroooooooo');
-
     const searchParams = request.nextUrl.searchParams;
     const availablePropertyIdsParam = searchParams.get('availablePropertyIds');
-
-    console.log(availablePropertyIdsParam)
 
     // Parse param into an array of numbers (or strings depending on your schema)
     let availablePropertyIdsArray: number[] = [];

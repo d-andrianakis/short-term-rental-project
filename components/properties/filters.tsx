@@ -30,16 +30,20 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
   useEffect(() => {
     const fetchData = async () => {
       try {
+        let propertyIds: string[] = [];
         // Guard against properties being null/undefined and ensure it's an array
         if (Array.isArray(properties)) {
-          properties.forEach((item) => {
-            console.log("chipichong " + item.propertyId);
-          });
-        } else {
-          console.log("no properties available yet");
+          propertyIds = properties.map(property => property.id);
         }
 
-        const result = await fetch('/api/properties/getPropertyAttributes');
+        // const result = await fetch('/api/properties/getPropertyAttributes');
+        const result = await fetch("/api/properties/getPropertyAttributes", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(propertyIds),
+        })
         const data = await result.json();
 
         if (Array.isArray(data) && data.length) {
