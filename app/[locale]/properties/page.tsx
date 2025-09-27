@@ -19,7 +19,8 @@ export default function SearchBar({ searchParams }: PageProps) {
     const g = useTranslations("Global");
     const t = useTranslations("Properties");
 
-    const [availableProperties, setAvailableProperties] = useState<string | null>(null);
+    // const [availableProperties, setAvailableProperties] = useState<string | null>(null);
+    const [availableProperties, setAvailableProperties] = useState<any[] | null>(null);
 
     const [loading, setLoading] = useState(false)
 
@@ -46,7 +47,8 @@ export default function SearchBar({ searchParams }: PageProps) {
           <aside className="w-1/6">
             <Filters
               loading={loading}
-              onFilter={loadAvailableProperties} // pass callback
+              onFilter={loadAvailableProperties}
+              properties={availableProperties}
             />
           </aside>
           <div className="w-5/6">
@@ -54,7 +56,7 @@ export default function SearchBar({ searchParams }: PageProps) {
             <div>{g('loading') ?? 'Loading...'}</div>
           ) : Array.isArray(availableProperties) && availableProperties.length > 0 ? (
             <div>
-              {availableProperties.map((prop, idx) => (
+              {availableProperties.map((prop: any, idx: number) => (
                 <div key={prop.id ?? idx} style={{ borderBottom: '1px solid #eee', padding: '8px 0' }}>
                   <strong>{prop.title ?? prop.name ?? `Property ${idx + 1}`}</strong>
                   {prop.location?.city || prop.city ? (

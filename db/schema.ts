@@ -139,6 +139,7 @@ export const propery_attributes = pgTable("property_attributes", {
   propertyId: integer("property_id").notNull(),
   filterable: boolean(),
   text: varchar("text"),
+  value: varchar("value"),
   applicable_countries: varchar("applicable_countries")
 });
 

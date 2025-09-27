@@ -15,12 +15,47 @@ import { useEffect, useState } from "react";
 
 type FiltersProps = {
   loading: boolean;
-  onFilter: (filter?: string) => void; // callback to parent
+  onFilter: (filter?: string) => void;
+  properties:any // callback to parent
 };
 
-export default function Filters({ onFilter, loading }: FiltersProps) {
+export default function Filters({ onFilter, loading, properties }: FiltersProps) {
   const g = useTranslations("Global");
   const t = useTranslations("Properties");
+
+  const test = properties;
+  const [data, setData] = useState([]);
+  const [attributes, setAttributes] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Guard against properties being null/undefined and ensure it's an array
+        if (Array.isArray(properties)) {
+          properties.forEach((item) => {
+            console.log("chipichong " + item.propertyId);
+          });
+        } else {
+          console.log("no properties available yet");
+        }
+
+        const result = await fetch('/api/properties/getPropertyAttributes');
+        const data = await result.json();
+
+        if (Array.isArray(data) && data.length) {
+          setAttributes(data);
+        } else {
+          setAttributes([]);
+        }
+      } catch (err) {
+        setAttributes([]);
+      } finally {
+        // timeoutId = setTimeout(() => setLoading(false), 1500);
+      }
+    };
+
+    fetchData();
+  }, [properties]); // re-run when properties changes
 
   return (
     <>
