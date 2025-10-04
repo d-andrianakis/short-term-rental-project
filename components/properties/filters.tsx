@@ -44,6 +44,7 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
           },
           body: JSON.stringify(propertyIds),
         })
+        
         const data = await result.json();
 
         if (Array.isArray(data) && data.length) {
