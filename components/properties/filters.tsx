@@ -69,6 +69,22 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
       ) : (
         <div>
           <div>
+          {
+            attributes.length > 0 &&
+              attributes.map((item: any) => {
+                if (item?.filterType === "radio") {
+                  console.log(item);
+                  return (
+                    <div>
+                      <div>{item.name}</div>
+                    </div>
+                  );
+                } else {
+                  console.log(`not radio ${item}`);
+                }
+                return null;
+              })
+          }
             <button onClick={() => onFilter("all")}>All</button>
             <RadioGroup defaultValue="option-one">
               <div className="flex items-center space-x-2">

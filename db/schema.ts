@@ -137,6 +137,7 @@ export const reviews = pgTable("reviews", {
 export const propery_attributes = pgTable("property_attributes", {
   id: serial("id").primaryKey(),
   propertyId: integer("property_id").notNull(),
+  filterType: varchar("filter_type"),
   filterable: boolean(),
   text: varchar("text"),
   value: varchar("value"),
