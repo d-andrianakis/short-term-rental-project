@@ -72,46 +72,40 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
           {
             attributes.length > 0 &&
               attributes.map((item: any) => {
+                const key = item.id ?? item.text ?? Math.random().toString(36).slice(2);
+                
+                // Radio type attribute
                 if (item?.filterType === "radio") {
-                  console.log(item);
                   return (
-                    <div>
-                      <div>{item.name}</div>
+                    <div key={key} className="mb-4">
+                      <RadioGroup defaultValue='radio-one'>
+                        <div className="flex items-center space-x-2" key={key}>
+                          <RadioGroupItem value={String(item.value)} id={key} onClick={() => onFilter(String(item.value))} />
+                          <Label htmlFor={key}>{item.text}</Label>
+                        </div>
+                      </RadioGroup>
                     </div>
                   );
-                } else {
-                  console.log(`not radio ${item}`);
                 }
-                return null;
+
+                // Default to select (or other) control
+                return (
+                  <div key={key} className="mb-4">
+                    <Label>{item.text}</Label>
+                    <Select onValueChange={(v) => onFilter(v)}>
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder={item.placeholder ?? 'Select'} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem key={String(item.value)} value={String(item.value)}>
+                          {item.text}
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                );
               })
           }
-            <button onClick={() => onFilter("all")}>All</button>
-            <RadioGroup defaultValue="option-one">
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="option-one" id="option-one" onClick={() => onFilter("all")} />
-                <Label htmlFor="option-one">Option One</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="option-two" id="option-two" onClick={() => onFilter("all")} />
-                <Label htmlFor="option-two">Option Two</Label>
-              </div>
-            </RadioGroup>
-          </div>
-          <div>
-            <button onClick={() => onFilter("house")}>Houses</button>
-            <Select onValueChange={() => onFilter("house")}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Theme" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <button onClick={() => onFilter("apartment")}>Apartments</button>
           </div>
         </div>
       )}
