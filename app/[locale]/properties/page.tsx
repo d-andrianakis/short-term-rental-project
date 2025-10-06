@@ -32,7 +32,7 @@ export default function SearchBar({ searchParams }: PageProps) {
       try {
         setLoading(true)
         const params = await searchParams
-        const items = await getAvailableProperties(params)
+        const items = await getAvailableProperties(params, filter)
         setAvailableProperties(items)
       } catch (error) {
         console.error("Failed to load gallery items:", error)
