@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { useQueryState } from 'nuqs';
 
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -23,20 +24,29 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
   const g = useTranslations("Global");
   const t = useTranslations("Properties");
 
-  const test = properties;
   const [data, setData] = useState([]);
   const [attributes, setAttributes] = useState<any[]>([]);
+
+  const [propertyType, setPropertyType] = useQueryState("propertyType", { defaultValue: "" });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+
         let propertyIds: string[] = [];
         // Guard against properties being null/undefined and ensure it's an array
         if (Array.isArray(properties)) {
+          console.log("is array " + properties)
           propertyIds = properties.map(property => property.id);
         }
 
-        // const result = await fetch('/api/properties/getPropertyAttributes');
+        properties.map((item: any) => {
+          console.log(item);
+        })
+
+
+        console.log(propertyIds);
+        
         const result = await fetch("/api/properties/getPropertyAttributes", {
           method: 'POST',
           headers: {
@@ -62,6 +72,10 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
     fetchData();
   }, [properties]); // re-run when properties changes
 
+  function setPropertyTypeFilter(value: string) {
+    setPropertyType(value);
+  }
+
   return (
     <>
       {loading ? (
@@ -80,7 +94,7 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
                     <div key={key} className="mb-4">
                       <RadioGroup defaultValue='radio-one'>
                         <div className="flex items-center space-x-2" key={key}>
-                          <RadioGroupItem value={String(item.value)} id={key} onClick={() => onFilter(String(item.value))} />
+                          <RadioGroupItem value={String(item.value)} id={key} onClick={() => { onFilter(String(item.value)); setPropertyTypeFilter(String(item.value));}} />
                           <Label htmlFor={key}>{item.text}</Label>
                         </div>
                       </RadioGroup>
