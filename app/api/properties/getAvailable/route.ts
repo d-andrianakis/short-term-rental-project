@@ -28,9 +28,6 @@ export async function GET(request: NextRequest) {
       return new Response('Invalid date format for startTime or endTime', { status: 400 });
     }
 
-    console.log(startDateTimestamp)
-    console.log(endDateTimestamp)
-    console.log(filterBy)
     if (startDateTimestamp >= endDateTimestamp) {
       return new Response('startTime must be before endTime', { status: 400 });
     }

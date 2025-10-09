@@ -36,16 +36,8 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
         let propertyIds: string[] = [];
         // Guard against properties being null/undefined and ensure it's an array
         if (Array.isArray(properties)) {
-          console.log("is array " + properties)
           propertyIds = properties.map(property => property.id);
         }
-
-        properties.map((item: any) => {
-          console.log(item);
-        })
-
-
-        console.log(propertyIds);
         
         const result = await fetch("/api/properties/getPropertyAttributes", {
           method: 'POST',
