@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
       whereConditions.push(eq(propery_attributes.value, filterValue));
 
       query = db
-        .select()
+        .select(properties)
         .from(properties)
         .leftJoin(propery_attributes, eq(properties.id, propery_attributes.propertyId))
         .where(whereConditions.length ? and(...whereConditions) : undefined);
