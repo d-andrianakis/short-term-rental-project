@@ -29,6 +29,15 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
 
   const [propertyType, setPropertyType] = useQueryState("propertyType", { defaultValue: "" });
 
+  // new state to control radio selection so items that share the same value
+  // will all appear selected when that value is chosen
+  const [selectedRadioValue, setSelectedRadioValue] = useState<string>(String(propertyType ?? ""));
+
+  useEffect(() => {
+    // keep controlled radio state synced with query-state
+    setSelectedRadioValue(String(propertyType ?? ""));
+  }, [propertyType]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -76,41 +85,59 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
         <div>
           <div>
           {
-            attributes.length > 0 &&
-              attributes.map((item: any) => {
-                const key = item.id ?? item.text ?? Math.random().toString(36).slice(2);
-                
-                // Radio type attribute
-                if (item?.filterType === "radio") {
-                  return (
-                    <div key={key} className="mb-4">
-                      <RadioGroup defaultValue='radio-one'>
-                        <div className="flex items-center space-x-2" key={key}>
-                          <RadioGroupItem value={String(item.value)} id={key} onClick={() => { onFilter(String(item.value)); setPropertyTypeFilter(String(item.value));}} />
-                          <Label htmlFor={key}>{item.text}</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-                  );
-                }
+            attributes.length > 0 && (() => {
+              // separate radio-type attributes from others
+              const radioAttrs = attributes.filter((a: any) => a?.filterType === "radio");
+              const otherAttrs = attributes.filter((a: any) => a?.filterType !== "radio");
 
-                // Default to select (or other) control
-                return (
-                  <div key={key} className="mb-4">
-                    <Label>{item.text}</Label>
-                    <Select onValueChange={(v) => onFilter(v)}>
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder={item.placeholder ?? 'Select'} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem key={String(item.value)} value={String(item.value)}>
-                          {item.text}
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                );
-              })
+              return (
+                <>
+                  {/* Render all radio attributes inside a single RadioGroup.
+                      When multiple items have the same value, they will all
+                      match selectedRadioValue and appear selected together. */}
+                  {radioAttrs.length > 0 && (
+                    <RadioGroup value={selectedRadioValue} onValueChange={(v: string) => {
+                      setSelectedRadioValue(v);
+                      setPropertyTypeFilter(v);
+                      onFilter(v);
+                    }}>
+                      {radioAttrs.map((item: any) => {
+                        const key = item.id ?? item.text ?? Math.random().toString(36).slice(2);
+                        return (
+                          <div key={key} className="mb-4">
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem value={String(item.value)} id={key} />
+                              <Label htmlFor={key}>{item.text}</Label>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </RadioGroup>
+                  )}
+
+                  {/* Render non-radio attributes as before */}
+                  {otherAttrs.map((item: any) => {
+                    const key = item.id ?? item.text ?? Math.random().toString(36).slice(2);
+
+                    return (
+                      <div key={key} className="mb-4">
+                        <Label>{item.text}</Label>
+                        <Select onValueChange={(v) => onFilter(v)}>
+                          <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder={item.placeholder ?? 'Select'} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem key={String(item.value)} value={String(item.value)}>
+                              {item.text}
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    );
+                  })}
+                </>
+              );
+            })()
           }
           </div>
         </div>
