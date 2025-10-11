@@ -11,6 +11,8 @@ import type { SearchParams } from 'nuqs/server'
 
 import Filters from '@/components/properties/filters';
 
+import GoogleMapComponent from '@/components/maps/Map';
+
 type PageProps = {
   searchParams: Promise<SearchParams>
 }
@@ -41,8 +43,15 @@ export default function SearchBar({ searchParams }: PageProps) {
       }
     }
 
+    const locations = [
+      { lat: 37.7749, lng: -122.4194, name: 'San Francisco' },
+      { lat: 37.8044, lng: -122.2711, name: 'Oakland' },
+      { lat: 37.6879, lng: -122.4702, name: 'Daly City' },
+    ];
+
     return (
       <>
+        <GoogleMapComponent locations={locations} />
         <div className="flex space-x-5">
           <aside className="w-1/6">
             <Filters
