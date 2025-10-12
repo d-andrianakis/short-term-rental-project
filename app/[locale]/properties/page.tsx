@@ -12,6 +12,8 @@ import type { SearchParams } from 'nuqs/server'
 import Filters from '@/components/properties/filters';
 
 import GoogleMapComponent from '@/components/maps/Map';
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 
 type PageProps = {
   searchParams: Promise<SearchParams>
@@ -50,38 +52,43 @@ export default function SearchBar({ searchParams }: PageProps) {
     ];
 
     return (
-      <>
-        <GoogleMapComponent locations={locations} />
-        <div className="flex space-x-5">
-          <aside className="w-1/6">
-            <Filters
-              loading={loading}
-              onFilter={loadAvailableProperties}
-              properties={availableProperties}
-            />
-          </aside>
-          <div className="w-5/6">
-            {loading ? (
-            <div>{g('loading') ?? 'Loading...'}</div>
-          ) : Array.isArray(availableProperties) && availableProperties.length > 0 ? (
-            <div>
-              {availableProperties.map((prop: any, idx: number) => (
-                <div key={prop.id ?? idx} style={{ borderBottom: '1px solid #eee', padding: '8px 0' }}>
-                  <strong>{prop.title ?? prop.name ?? `Property ${idx + 1}`}</strong>
-                  {prop.location?.city || prop.city ? (
-                    <div>{prop.location?.city ?? prop.city}</div>
-                  ) : null}
-                  <pre style={{ whiteSpace: 'pre-wrap', margin: '8px 0 0' }}>
-                    {JSON.stringify(prop, null, 2)}
-                  </pre>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div>{t('no_properties')}</div>
-          )}
+      <div className="flex space-x-5">
+        <aside className="w-1/6">
+          <Filters
+            loading={loading}
+            onFilter={loadAvailableProperties}
+            properties={availableProperties}
+          />
+        </aside>
+        <div className="w-5/6">
+        <Popover>
+          <PopoverTrigger>
+            Open maps search
+          </PopoverTrigger>
+          <PopoverContent className="w-7xl">
+            <GoogleMapComponent locations={locations} />
+          </PopoverContent>
+        </Popover>
+          {loading ? (
+          <div>{g('loading') ?? 'Loading...'}</div>
+        ) : Array.isArray(availableProperties) && availableProperties.length > 0 ? (
+          <div>
+            {availableProperties.map((prop: any, idx: number) => (
+              <div key={prop.id ?? idx} style={{ borderBottom: '1px solid #eee', padding: '8px 0' }}>
+                <strong>{prop.title ?? prop.name ?? `Property ${idx + 1}`}</strong>
+                {prop.location?.city || prop.city ? (
+                  <div>{prop.location?.city ?? prop.city}</div>
+                ) : null}
+                <pre style={{ whiteSpace: 'pre-wrap', margin: '8px 0 0' }}>
+                  {JSON.stringify(prop, null, 2)}
+                </pre>
+              </div>
+            ))}
           </div>
+        ) : (
+          <div>{t('no_properties')}</div>
+        )}
         </div>
-      </>
+      </div>
     )
 }
