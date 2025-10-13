@@ -62,8 +62,10 @@ export default function SearchBar({ searchParams }: PageProps) {
         </aside>
         <div className="w-5/6">
         <Popover>
-          <PopoverTrigger>
-            Open maps search
+          <PopoverTrigger asChild>
+            <Button variant="secondary">
+              Open maps search
+            </Button>
           </PopoverTrigger>
           <PopoverContent className="w-7xl">
             <GoogleMapComponent locations={locations} />
