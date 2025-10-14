@@ -49,8 +49,6 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
             .filter(p => p && typeof p.id === 'string') // ensure valid objects with string ids
             .map(p => p.id);
         }
-        
-        console.log(propertyIds);
 
         const result = await fetch("/api/properties/getPropertyAttributes", {
           method: 'POST',
