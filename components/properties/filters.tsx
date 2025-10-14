@@ -45,9 +45,13 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
         let propertyIds: string[] = [];
         // Guard against properties being null/undefined and ensure it's an array
         if (Array.isArray(properties)) {
-          propertyIds = properties.map(property => property.id);
+          propertyIds = properties
+            .filter(p => p && typeof p.id === 'string') // ensure valid objects with string ids
+            .map(p => p.id);
         }
         
+        console.log(propertyIds);
+
         const result = await fetch("/api/properties/getPropertyAttributes", {
           method: 'POST',
           headers: {
@@ -102,7 +106,9 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
                       onFilter(v);
                     }}>
                       {radioAttrs.map((item: any) => {
-                        const key = item.id ?? item.text ?? Math.random().toString(36).slice(2);
+                        const key = item.propertyId ?? item.text ?? Math.random().toString(36).slice(2);
+
+                        console.log(item)
                         return (
                           <div key={key} className="mb-4">
                             <div className="flex items-center space-x-2">
