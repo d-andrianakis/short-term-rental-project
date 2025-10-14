@@ -14,6 +14,7 @@ import Filters from '@/components/properties/filters';
 import GoogleMapComponent from '@/components/maps/Map';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 type PageProps = {
   searchParams: Promise<SearchParams>
@@ -64,7 +65,7 @@ export default function SearchBar({ searchParams }: PageProps) {
         <Popover>
           <PopoverTrigger asChild>
             <Button variant="secondary">
-              Open maps search
+              Open map view
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-7xl">

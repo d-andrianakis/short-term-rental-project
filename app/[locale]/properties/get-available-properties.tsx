@@ -12,7 +12,7 @@ export default async function getAvailableProperties(params: any, filter: any = 
   const { city, datetime, endtime } = await loadSearchParams(params)
 
   if (city && datetime && endtime) {
-    try {
+  try {
       const urlParams = new URLSearchParams()
       urlParams.set("city", city)
       urlParams.set("startTime", datetime)

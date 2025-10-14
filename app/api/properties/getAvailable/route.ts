@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { db } from "@/db/drizzle";
-import { bookings, properties, propery_attributes } from "@/db/schema";
+import { bookings, properties, property, propery_attributes } from "@/db/schema";
 import { eq, and, lt, gt, notInArray } from 'drizzle-orm';
  
 export async function GET(request: NextRequest) {
@@ -58,15 +58,17 @@ export async function GET(request: NextRequest) {
       whereConditions.push(eq(propery_attributes.value, filterValue));
 
       query = db
-        .select(properties)
+        .select({properties, property})
         .from(properties)
+        .leftJoin(property, eq(properties.id, property.id))
         .leftJoin(propery_attributes, eq(properties.id, propery_attributes.propertyId))
         .where(whereConditions.length ? and(...whereConditions) : undefined);
 
     } else {
       query = db
-        .select()
+        .select({properties})
         .from(properties)
+        .leftJoin(property, eq(properties.id, property.id))
         .where(conflictingIds.length > 0
           ? notInArray(properties.id, conflictingIds)
           : undefined // if no conflicts, return all
