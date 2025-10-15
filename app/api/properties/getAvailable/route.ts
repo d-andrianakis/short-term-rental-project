@@ -66,8 +66,8 @@ export async function GET(request: NextRequest) {
 
     } else {
       query = db
-        .select({properties})
-        .from(properties)
+        .select({properties, property})
+        .from(properties, )
         .leftJoin(property, eq(properties.id, property.id))
         .where(conflictingIds.length > 0
           ? notInArray(properties.id, conflictingIds)
