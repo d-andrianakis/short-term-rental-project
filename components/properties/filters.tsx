@@ -106,7 +106,6 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
                       {radioAttrs.map((item: any) => {
                         const key = item.propertyId ?? item.text ?? Math.random().toString(36).slice(2);
 
-                        console.log(item)
                         return (
                           <div key={key} className="mb-4">
                             <div className="flex items-center space-x-2">
