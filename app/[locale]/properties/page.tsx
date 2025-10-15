@@ -10,6 +10,7 @@ import getAvailableProperties from './get-available-properties';
 import type { SearchParams } from 'nuqs/server'
 
 import Filters from '@/components/properties/filters';
+import Loading from "./loading";
 
 import GoogleMapComponent from '@/components/maps/Map';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -73,11 +74,11 @@ export default function SearchBar({ searchParams }: PageProps) {
           </PopoverContent>
         </Popover>
           {loading ? (
-          <div>{g('loading') ?? 'Loading...'}</div>
+          <Loading />
         ) : Array.isArray(availableProperties) && availableProperties.length > 0 ? (
-          <div>
+          <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             {availableProperties.map((prop: any, idx: number) => (
-              <div key={prop.id ?? idx} style={{ borderBottom: '1px solid #eee', padding: '8px 0' }}>
+              <div key={prop.id ?? idx} className="" style={{ padding: '8px 0' }}>
                 <strong>{prop.title ?? prop.name ?? `Property ${idx + 1}`}</strong>
                 {prop.location?.city || prop.city ? (
                   <div>{prop.location?.city ?? prop.city}</div>
@@ -85,6 +86,13 @@ export default function SearchBar({ searchParams }: PageProps) {
                 <pre style={{ whiteSpace: 'pre-wrap', margin: '8px 0 0' }}>
                   {JSON.stringify(prop, null, 2)}
                 </pre>
+                <div>
+                  <Button asChild>
+                    <Link href={`/properties/property/${prop.property.slug ?? idx}`}>
+                      View details
+                    </Link>
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
