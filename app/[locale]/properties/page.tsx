@@ -11,6 +11,7 @@ import type { SearchParams } from 'nuqs/server'
 
 import Filters from '@/components/properties/filters';
 import Loading from "./loading";
+import PropertyCard from "@/components/properties/PropertyCard";
 
 import GoogleMapComponent from '@/components/maps/Map';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -76,24 +77,9 @@ export default function SearchBar({ searchParams }: PageProps) {
           {loading ? (
           <Loading />
         ) : Array.isArray(availableProperties) && availableProperties.length > 0 ? (
-          <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-4 grid-cols-1 my-5 md:grid-cols-2 xl:grid-cols-3">
             {availableProperties.map((prop: any, idx: number) => (
-              <div key={prop.id ?? idx} className="" style={{ padding: '8px 0' }}>
-                <strong>{prop.title ?? prop.name ?? `Property ${idx + 1}`}</strong>
-                {prop.location?.city || prop.city ? (
-                  <div>{prop.location?.city ?? prop.city}</div>
-                ) : null}
-                <pre style={{ whiteSpace: 'pre-wrap', margin: '8px 0 0' }}>
-                  {JSON.stringify(prop, null, 2)}
-                </pre>
-                <div>
-                  <Button asChild>
-                    <Link href={`/properties/property/${prop.property.slug ?? idx}`}>
-                      View details
-                    </Link>
-                  </Button>
-                </div>
-              </div>
+              <PropertyCard property={prop} idx={Math.random().toString(36).slice(2)} />
             ))}
           </div>
         ) : (
