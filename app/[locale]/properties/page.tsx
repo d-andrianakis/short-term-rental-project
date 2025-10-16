@@ -16,7 +16,6 @@ import PropertyCard from "@/components/properties/PropertyCard";
 import GoogleMapComponent from '@/components/maps/Map';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 type PageProps = {
   searchParams: Promise<SearchParams>
