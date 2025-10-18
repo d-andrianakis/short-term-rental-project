@@ -8,7 +8,7 @@ export default function PropertyCard({ property, idx }: { property: any, idx: st
     <div key={idx} className="border border-solid border-white rounded-xl p-2">
         <div className="relative w-full h-64 rounded-xl overflow-hidden">
             <Image 
-                src={property.property.main_image ?? "/assets/placeholder.png"} 
+                src={property.property.mainImage ? '/assets/' + property.property.mainImage : "/assets/placeholder.png"} 
                 alt="placeholder"
                 fill={true}
                 quality={85}

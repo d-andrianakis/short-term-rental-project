@@ -107,6 +107,7 @@ export const property = pgTable("property", {
   status: boolean(),
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
+  mainImage: text("main_image"),
   expiresAt: timestamp("expires_at").notNull(),
   createdAt: timestamp("created_at").$defaultFn(
     () => /* @__PURE__ */ new Date(),
