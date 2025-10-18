@@ -23,7 +23,7 @@ export function Breadcrumbs({ items, className, showHome = true }: BreadcrumbPro
   const breadcrumbItems = items || generateBreadcrumbItems(pathname)
 
   return (
-    <nav aria-label="Breadcrumb" className={cn("flex items-center space-x-1 text-sm text-muted-foreground mt-8", className)}>
+    <nav aria-label="Breadcrumb" className={cn("flex items-center space-x-1 text-sm text-muted-foreground my-8", className)}>
       {showHome && (
         <>
           <Link href="/" className="flex items-center hover:text-foreground transition-colors" aria-label="Home">

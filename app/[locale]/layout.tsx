@@ -60,7 +60,7 @@ export default async function RootLayout({
             >
             <NextIntlClientProvider>
               <Header/>
-                <div className="container mx-auto">
+                <div className="container mx-auto max-[1600px]:px-5">
                   <Breadcrumbs />
                   {children}
                 </div>
