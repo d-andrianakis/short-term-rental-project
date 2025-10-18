@@ -7,5 +7,8 @@
   }, 
   "Properties": {
     "no_properties": "Δε βρέθηκαν ακίνητα!"
+  },
+  "Property": {
+    "book_now": "Κάνε κράτηση τώρα!"
   }
 }
