@@ -1,19 +1,26 @@
 'use client';
 
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 import { Button } from "@/components/ui/button";
 
 import { useTranslations } from 'next-intl';
 
+import { usePropertyStore } from "@/store/usePropertyStore";
+
 export default function PropertyPageClient({ property }) {
+  const router = useRouter();
+  const setPropertyId = usePropertyStore((state) => state.setPropertyId);
+
   const g = useTranslations("Property");
 
   const handleClick = () => {
-    console.log('clicked');
-  }
+    setPropertyId(property.id);
 
+    router.push('/checkout/checkout');
+  };
+  
   return (
     <main className="flex space-x-5">
       <div className="w-3/4">
@@ -37,11 +44,7 @@ export default function PropertyPageClient({ property }) {
             className="w-full"
             onClick={handleClick}
           >
-            <Link
-              href="/checkout/checkout"
-            >
               {g('book_now')}
-            </Link>
           </Button>
         </div>
       </aside>

@@ -5,12 +5,18 @@ import convertToSubcurrency from "@/lib/convertToSubcurrency";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
+import { usePropertyStore } from "@/store/usePropertyStore";
+
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
   throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
 }
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 export default function Checkout() {
+  const propertyId = usePropertyStore((state) => state.propertyId);
+
+  console.log(`property id is: ${propertyId}`)
+
   const amount = 49.99;
 
   return (
