@@ -7,7 +7,8 @@ import {
   smallint,
   serial,
   real,
-  varchar
+  varchar,
+  numeric
 } from "drizzle-orm/pg-core";
 import { Varta } from "next/font/google";
 
@@ -145,6 +146,13 @@ export const propery_attributes = pgTable("property_attributes", {
   applicable_countries: varchar("applicable_countries")
 });
 
+ export const property_reviews = pgTable("property_reviews", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "property_reviews_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
+  propertyId: integer("property_id").notNull(),
+  overallScore: numeric("overall_score", { precision: 2, scale:  0 }),
+  review: text(),
+});
+
 export const schema = {
   user,
   session,
@@ -155,5 +163,6 @@ export const schema = {
   property,
   bookings,
   reviews,
-  propery_attributes
+  propery_attributes,
+  property_reviews
 };
