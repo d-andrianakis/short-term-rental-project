@@ -1,11 +1,15 @@
 "use client";
 
+import { useState, useEffect, Suspense } from "react";
+
 import CheckoutPage from "@/components/checkout/CheckoutPage";
 import convertToSubcurrency from "@/lib/convertToSubcurrency";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
 import { usePropertyStore } from "@/store/usePropertyStore";
+
+import { Skeleton } from "@/components/ui/skeleton";
 
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
   throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
@@ -15,7 +19,21 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 export default function Checkout() {
   const propertyId = usePropertyStore((state) => state.propertyId);
 
-  console.log(`property id is: ${propertyId}`)
+  const [property, setProperty] = useState<any[]>([]);
+  const [loadingProperty, setLoadingProperty] = useState(true);
+  
+  async function fetchData() {
+    if (propertyId) {
+      const res = await fetch(`/api/properties/getPropertyById/${propertyId}`, { method: "GET" });
+      const data = await res.json();
+      setProperty(data);
+      setLoadingProperty(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [propertyId]);
 
   const amount = 49.99;
 
@@ -27,6 +45,15 @@ export default function Checkout() {
             amount
             <span className="font-bold">${amount}</span>
             <p className="font-bold">Property:</p>
+            {loadingProperty ? (
+                <div className="w-1/2 mx-auto py-5">
+                  <Skeleton className="h-8" />
+                </div>
+              ) : property !== null ? (
+                <p>{property.name}</p>
+              ) : (
+                <p>No property selected</p>
+              )}
             </h2>
         </div>
 
