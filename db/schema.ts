@@ -1,3 +1,4 @@
+import { decimal } from "drizzle-orm/gel-core";
 import {
   pgTable,
   text,
@@ -109,6 +110,7 @@ export const property = pgTable("property", {
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
   mainImage: text("main_image"),
+  pricePerNight: numeric("price_per_night", { precision: 10, scale: 2 }),
   expiresAt: timestamp("expires_at").notNull(),
   createdAt: timestamp("created_at").$defaultFn(
     () => /* @__PURE__ */ new Date(),

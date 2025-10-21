@@ -11,5 +11,9 @@
   "Property": {
     "book_now": "Κάνε κράτηση τώρα!",
     "rating": "Βαθμολογία:"
+  },
+  "Checkout": {
+    "name": "Όνομα",
+    "summary": "Σύνοψη"
   }
 }

@@ -11,5 +11,9 @@
   "Property": {
     "book_now": "Book now!",
     "rating": "Rating:"
+  },
+  "Checkout": {
+    "name": "name",
+    "summary": "Summary"
   }
 }
