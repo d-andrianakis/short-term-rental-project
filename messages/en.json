@@ -14,6 +14,7 @@
   },
   "Checkout": {
     "name": "name",
-    "summary": "Summary"
+    "summary": "Summary",
+    "total": "Total"
   }
 }

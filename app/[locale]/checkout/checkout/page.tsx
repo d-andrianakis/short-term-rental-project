@@ -12,6 +12,9 @@ import { usePropertyStore } from "@/store/usePropertyStore";
 
 import { Skeleton } from "@/components/ui/skeleton";
 
+import { CalendarCheck2 } from 'lucide-react';
+import { CalendarX2 } from 'lucide-react';
+
 import Image from "next/image";
 
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
@@ -22,8 +25,10 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 export default function Checkout() {
   const g = useTranslations("Checkout");
   const propertyId = usePropertyStore((state) => state.propertyId);
+  const fromDate = usePropertyStore((state) => state.fromDate);
+  const toDate = usePropertyStore((state) => state.toDate);
 
-  const [property, setProperty] = useState<any[]>([]);
+  const [property, setProperty] = useState<any | null>(null);
   const [loadingProperty, setLoadingProperty] = useState(true);
   
   async function fetchData() {
@@ -39,9 +44,19 @@ export default function Checkout() {
     fetchData();
   }, [propertyId]);
 
-  const amount = 49.99;
-  const nights = 5;
+  function daysBetweenIso(startIso?: string | null, endIso?: string | null) {
+    if (!startIso || !endIso) return 0;
+    const s = new Date(startIso);
+    const e = new Date(endIso);
+    const utcStart = Date.UTC(s.getUTCFullYear(), s.getUTCMonth(), s.getUTCDate());
+    const utcEnd = Date.UTC(e.getUTCFullYear(), e.getUTCMonth(), e.getUTCDate());
+    const msPerDay = 24 * 60 * 60 * 1000;
+    return Math.round((utcEnd - utcStart) / msPerDay);
+  }
 
+  const nights = daysBetweenIso(fromDate, toDate);
+  const total = nights * (property?.pricePerNight ?? 0);
+  
   return (
     <main className="flex mx-auto justify-between items-stretch p-10 text-white text-center border m-10 rounded-md">
         <div className="w-1/2 border border-solid border-black rounded-md p-5">
@@ -66,6 +81,18 @@ export default function Checkout() {
                   <div className="w-2/3 pl-5 text-left text-foreground">
                     <p className="text-foreground">{property.name}</p>
                     <p className="">{property.pricePerNight}</p>
+                    <div className="flex space-x-5">
+                      <span>{fromDate ?? 'No from date selected'}</span>
+                      <CalendarCheck2 />
+                    </div>
+                    <div className="flex space-x-5">
+                      <p>{toDate ?? 'No to date selected'}</p>
+                      <CalendarX2 />
+                    </div>
+                    <div className="checkout-summary flex space-x-5 mt-5 border-t border-black">
+                      <p>{g('total')}</p>
+                      <p>{total}</p>
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -78,11 +105,11 @@ export default function Checkout() {
                 stripe={stripePromise}
                 options={{
                 mode: "payment",
-                amount: convertToSubcurrency(amount),
+                amount: convertToSubcurrency(total),
                 currency: "usd",
                 }}
             >
-                <CheckoutPage amount={amount} />
+                <CheckoutPage amount={total} />
             </Elements>
         </div>
       

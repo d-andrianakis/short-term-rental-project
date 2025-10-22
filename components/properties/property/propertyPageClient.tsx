@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from 'next/navigation';
 
 import { Button } from "@/components/ui/button";
+import { SearchFormProperty } from "@/components/ui/search-form property";
 
 import { useTranslations } from 'next-intl';
 
@@ -12,19 +13,12 @@ import { useEffect, useState } from "react";
 
 export default function PropertyPageClient({ property }) {
   const router = useRouter();
-  const setPropertyId = usePropertyStore((state) => state.setPropertyId);
+  // const setPropertyId = usePropertyStore((state) => state.setPropertyId);
 
   const g = useTranslations("Property");
 
   const [reviewScore, setReviewScore] = useState<number | null>(null);
   const [loadingScore, setLoadingScore] = useState(true);
-
-  const handleClick = () => {
-    // handle setting peristent property data with Zustand first and then redirect to checkout
-    setPropertyId(property.id);
-    
-    router.push('/checkout/checkout');
-  };
 
   async function fetchData() {
     try {
@@ -83,13 +77,9 @@ export default function PropertyPageClient({ property }) {
       </div>
       <aside className="w-1/4 h-screen relative">
         <div className="sticky top-0">
-          <Button
-            variant="secondary"
-            className="w-full"
-            onClick={handleClick}
-          >
-              {g('book_now')}
-          </Button>
+          <SearchFormProperty 
+            propertyId = {property.id}
+          />
         </div>
       </aside>
     </main>
