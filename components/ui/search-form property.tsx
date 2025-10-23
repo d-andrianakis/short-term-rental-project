@@ -45,6 +45,9 @@ const FormSchema = z.object({
 });
  
 export function SearchFormProperty({ propertyId }: { propertyId: string }) {
+  const [checkinDate, setCheckinDate] = useQueryState("datetime", { defaultValue: ""});
+  const [checkoutDate, setCheckoutDate] = useQueryState("endtime", { defaultValue: ""});
+
   const [dateTime, setDateTime] = useState("");
   const [endDateTime, setEndDateTime] = useState("");
   const router = useRouter();
