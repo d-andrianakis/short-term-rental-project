@@ -16,6 +16,7 @@ import { CalendarCheck2 } from 'lucide-react';
 import { CalendarX2 } from 'lucide-react';
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
   throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
@@ -24,6 +25,8 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 export default function Checkout() {
   const g = useTranslations("Checkout");
+  const router = useRouter();
+
   const propertyId = usePropertyStore((state) => state.propertyId);
   const fromDate = usePropertyStore((state) => state.fromDate);
   const toDate = usePropertyStore((state) => state.toDate);
@@ -101,6 +104,7 @@ export default function Checkout() {
         </div>
 
         <div className="w-1/2 h-full">
+        {total ? (
             <Elements
                 stripe={stripePromise}
                 options={{
@@ -111,8 +115,10 @@ export default function Checkout() {
             >
                 <CheckoutPage amount={total} />
             </Elements>
-        </div>
-      
+                ) : (
+                <p>Loading</p>
+              )}
+      </div>
     </main>
   );
 }
