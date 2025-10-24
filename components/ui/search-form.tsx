@@ -10,6 +10,8 @@ import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { usePropertyStore } from "@/store/usePropertyStore";
  
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -42,6 +44,9 @@ const FormSchema = z.object({
 });
  
 export function SearchForm() {
+  const setFromDate = usePropertyStore((state) => state.setFromDate);
+  const setToDate = usePropertyStore((state) => state.setToDate);
+
   const [city, setCity] = useQueryState("city", { defaultValue: "" });
   const [dateTime, setDateTime] = useQueryState("datetime", { defaultValue: "" });
   const [endDateTime, setEndDateTime] = useQueryState("endtime", { defaultValue: "" });
@@ -66,12 +71,14 @@ export function SearchForm() {
       const parsed = new Date(dateTime);
       if (!isNaN(parsed.getTime())) {
         form.setValue("time", parsed);
+        setFromDate(parsed.toISOString());
       }
     }
     if (endDateTime) {
       const parsedEndTime = new Date(endDateTime);
       if (!isNaN(parsedEndTime.getTime())) {
         form.setValue("endtime", parsedEndTime);
+        setToDate(parsedEndTime.toISOString());
       }
     }
   }, [dateTime, endDateTime, form]);

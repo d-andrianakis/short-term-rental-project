@@ -45,8 +45,6 @@ const FormSchema = z.object({
 });
  
 export function SearchFormProperty({ propertyId }: { propertyId: string }) {
-  const [checkinDate, setCheckinDate] = useQueryState("datetime", { defaultValue: ""});
-  const [checkoutDate, setCheckoutDate] = useQueryState("endtime", { defaultValue: ""});
 
   const [dateTime, setDateTime] = useState("");
   const [endDateTime, setEndDateTime] = useState("");
@@ -55,7 +53,9 @@ export function SearchFormProperty({ propertyId }: { propertyId: string }) {
   const setPropertyId = usePropertyStore((state) => state.setPropertyId);
   const setFromDate = usePropertyStore((state) => state.setFromDate);
   const setToDate = usePropertyStore((state) => state.setToDate);
-
+  const fromDate = usePropertyStore((state) => state.fromDate);
+  const toDate = usePropertyStore((state) => state.toDate);
+  
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -85,9 +85,29 @@ export function SearchFormProperty({ propertyId }: { propertyId: string }) {
         setToDate(parsedEndTime.toISOString());
       }
     }
-  }, [dateTime, endDateTime, form]);
+  }, [dateTime, endDateTime, form, setFromDate, setToDate]);
 
- 
+  // sync zustand -> form: when fromDate changes elsewhere, reflect it in this form
+  useEffect(() => {
+    if (fromDate) {
+      const parsed = new Date(fromDate);
+      if (!isNaN(parsed.getTime())) {
+        form.setValue("time", parsed);
+        setDateTime(parsed.toISOString());
+      }
+    }
+  }, [fromDate, form]);
+
+  useEffect(() => {
+    if (toDate) {
+      const parsed = new Date(toDate);
+      if (!isNaN(parsed.getTime())) {
+        form.setValue("endtime", parsed);
+        setEndDateTime(parsed.toISOString());
+      }
+    }
+  }, [toDate, form]);
+  
   function handleDateSelect(date: Date | undefined) {
     if (date) {
       form.setValue("time", date);
