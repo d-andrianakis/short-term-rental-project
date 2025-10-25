@@ -9,12 +9,16 @@
     "no_properties": "No properties found!"
   },
   "Property": {
+    "check_in_date": "Check-in date",
+    "check_out_date": "Check-out date",
     "book_now": "Book now!",
     "rating": "Rating:"
   },
   "Checkout": {
     "name": "name",
     "summary": "Summary",
-    "total": "Total"
+    "total": "Total",
+    "thank_you": "Thank you",
+    "booking_complete": "your booking is complete"
   }
 }

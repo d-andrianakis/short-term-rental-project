@@ -9,12 +9,16 @@
     "no_properties": "Δε βρέθηκαν ακίνητα!"
   },
   "Property": {
+    "check_in_date": "Ημ/νία check-in",
+    "check_out_date": "Ημ/νία check-out",
     "book_now": "Κάνε κράτηση τώρα!",
     "rating": "Βαθμολογία:"
   },
   "Checkout": {
     "name": "Όνομα",
     "summary": "Σύνοψη",
-    "total": "Σύνολο"
+    "total": "Σύνολο",
+    "thank_you": "Ευχαριστούμε",
+    "booking_complete": "η κράτησή σας καταχωρήθηκε"
   }
 }

@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useQueryState } from "nuqs";
 import { useRouter } from "next/navigation";
 
+import { useTranslations } from 'next-intl';
+
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon } from "@radix-ui/react-icons";
@@ -45,6 +47,7 @@ const FormSchema = z.object({
 });
  
 export function SearchFormProperty({ propertyId }: { propertyId: string }) {
+  const g = useTranslations("Property");
 
   const [dateTime, setDateTime] = useState("");
   const [endDateTime, setEndDateTime] = useState("");
@@ -154,7 +157,7 @@ export function SearchFormProperty({ propertyId }: { propertyId: string }) {
  
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 gap-2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 gap-2">
           <FormField
           control={form.control}
           name="time"
@@ -353,7 +356,8 @@ export function SearchFormProperty({ propertyId }: { propertyId: string }) {
             </FormItem>
           )}
         />
-        <Button variant="secondary" size="icon" className="size-8" type="submit">
+        <Button variant="secondary" size="lg" className="w-full" type="submit">
+          {g('book_now')}
           <CalendarDays
           />
         </Button>
