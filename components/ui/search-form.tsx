@@ -41,7 +41,13 @@ const FormSchema = z.object({
   endtime: z.date({
     required_error: "An end date and time is required.",
   }),
-});
+  }).refine(
+  (data) => data.endtime >= data.time,
+  {
+    message: "End time must be after start time.",
+    path: ["endtime"],
+  }
+);
  
 export function SearchForm() {
   const setFromDate = usePropertyStore((state) => state.setFromDate);
@@ -177,6 +183,7 @@ export function SearchForm() {
                       selected={field.value}
                       onSelect={handleDateSelect}
                       initialFocus
+                      disabled={date => date < new Date()}   // Disables future dates from current date
                     />
                     <div className="flex flex-col sm:flex-row sm:h-[300px] divide-y sm:divide-y-0 sm:divide-x">
                       <ScrollArea className="w-64 sm:w-auto">
@@ -276,6 +283,7 @@ export function SearchForm() {
                       selected={field.value}
                       onSelect={handleEndDateSelect}
                       initialFocus
+                      disabled={date => date < new Date()}
                     />
                     <div className="flex flex-col sm:flex-row sm:h-[300px] divide-y sm:divide-y-0 sm:divide-x">
                       <ScrollArea className="w-64 sm:w-auto">
