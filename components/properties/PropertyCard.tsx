@@ -21,12 +21,12 @@ export default function PropertyCard({ property, idx }: { property: any, idx: st
         className="relative w-full h-64 rounded-xl overflow-hidden"
         >
           <Image 
-                src={property.property.mainImage ? '/assets/' + property.property.mainImage : "/assets/placeholder.png"} 
-                alt="placeholder"
-                fill={true}
-                quality={85}
-                style={{ objectFit: "cover" }}
-                loading="lazy"
+            src={property.property.mainImage ? '/assets/' + property.property.mainImage : "/assets/placeholder.png"} 
+            alt="placeholder"
+            fill={true}
+            quality={85}
+            style={{ objectFit: "cover" }}
+            loading="lazy"
           />
         </CardHeader>
         <CardContent>
@@ -34,11 +34,13 @@ export default function PropertyCard({ property, idx }: { property: any, idx: st
           <p><strong>{property.properties.city}</strong></p>
         </CardContent>
         <CardFooter>
-          <Button asChild>
+          <CardAction>
+            <Button asChild>
             <Link href={`/properties/property/${property.property?.slug ?? idx}`}>
               View details
             </Link>
           </Button>
+          </CardAction>
         </CardFooter>
       </Card>
     </div>

@@ -163,7 +163,7 @@ export function SearchForm() {
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-full pl-3 text-left font-normal",
+                        "w-full pl-3 text-left font-normal text-primary",
                         !field.value && "text-muted-foreground"
                       )}
                     >
@@ -263,7 +263,7 @@ export function SearchForm() {
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-full pl-3 text-left font-normal",
+                        "w-full pl-3 text-left font-normal text-primary",
                         !field.value && "text-muted-foreground"
                       )}
                     >
