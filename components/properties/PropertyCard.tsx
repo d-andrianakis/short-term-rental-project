@@ -3,29 +3,44 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
 export default function PropertyCard({ property, idx }: { property: any, idx: string }) {
   return (
-    <div key={idx} className="border border-solid border-white rounded-xl p-2">
-        <div className="relative w-full h-64 rounded-xl overflow-hidden">
-            <Image 
+    <div key={`properrty-${idx}`}>
+      <Card className="pt-0">
+        <CardHeader
+        className="relative w-full h-64 rounded-xl overflow-hidden"
+        >
+          <Image 
                 src={property.property.mainImage ? '/assets/' + property.property.mainImage : "/assets/placeholder.png"} 
                 alt="placeholder"
                 fill={true}
                 quality={85}
                 style={{ objectFit: "cover" }}
                 loading="lazy"
-            />
-        </div>
-      <strong>{property.property.name ?? `Property ${idx + 1}`}</strong>
-      <p><strong>{property.properties.city}</strong></p>
-      {console.log(property)}
-      <div>
-        <Button asChild>
-          <Link href={`/properties/property/${property.property?.slug ?? idx}`}>
-            View details
-          </Link>
-        </Button>
-      </div>
+          />
+        </CardHeader>
+        <CardContent>
+          <h2>{property.property.name ?? `Property ${idx + 1}`}</h2>
+          <p><strong>{property.properties.city}</strong></p>
+        </CardContent>
+        <CardFooter>
+          <Button asChild>
+            <Link href={`/properties/property/${property.property?.slug ?? idx}`}>
+              View details
+            </Link>
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
   );
 }
