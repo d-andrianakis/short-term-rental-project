@@ -11,6 +11,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { usePropertyStore } from "@/store/usePropertyStore";
 
 import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator"
 
 import { CalendarCheck2 } from 'lucide-react';
 import { CalendarX2 } from 'lucide-react';
@@ -62,8 +63,8 @@ export default function Checkout() {
   
   return (
     <main className="flex mx-auto justify-between items-stretch p-10 text-white text-center border m-10 rounded-md">
-        <div className="w-1/2 border border-solid border-black rounded-md p-5">
-            <h1 className="text-black text-3xl font-extrabold mb-2">{g('summary')}</h1>
+        <div className="w-1/2 border border-solid border-gray-200 rounded-md p-5">
+            <h1 className="text-black text-3xl font-bold mb-2">{g('summary')}</h1>
             <p className="font-bold">Property:</p>
             {loadingProperty ? (
                 <div className="w-1/2 mx-auto py-5">
@@ -92,7 +93,8 @@ export default function Checkout() {
                       <p>{toDate ?? 'No to date selected'}</p>
                       <CalendarX2 />
                     </div>
-                    <div className="checkout-summary flex space-x-5 mt-5 border-t border-black">
+                    <Separator className="my-5"/>
+                    <div className="checkout-summary flex space-x-5">
                       <p>{g('total')}</p>
                       <p>{total}</p>
                     </div>
