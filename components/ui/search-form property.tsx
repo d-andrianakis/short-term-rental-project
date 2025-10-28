@@ -126,7 +126,7 @@ export function SearchFormProperty({ propertyId }: { propertyId: string }) {
 
   function handleTimeChange(type: "hour" | "minute", value: string) {
     const currentDate = form.getValues("time") || new Date();
-    let newDate = new Date(currentDate);
+    const newDate = new Date(currentDate);
 
     if (type === "hour") {
       const hour = parseInt(value, 10);
