@@ -8,6 +8,7 @@ import { galleryApi } from "@/lib/gallery-api"
 import type { GalleryItem } from "@/lib/gallery-types"
 import ImageUpload from "@/components/admin/image-upload"
 import { Trash2, Edit3, Save, X, Plus, ChevronUp, ChevronDown, ImageIcon } from "lucide-react"
+import Image from "next/image"
 
 export default function HomepageGalleryAdmin() {
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([])
@@ -184,7 +185,7 @@ export default function HomepageGalleryAdmin() {
               <div className="flex">
                 {/* Image Preview */}
                 <div className="w-48 h-32 bg-muted flex-shrink-0">
-                  <img
+                  <Image
                     src={item.imageUrl || "/placeholder.svg"}
                     alt={item.caption}
                     className="w-full h-full object-cover"

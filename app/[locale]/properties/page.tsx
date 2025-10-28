@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { useQueryState } from 'nuqs'
 
 import {useTranslations} from 'next-intl';
 
@@ -22,12 +21,9 @@ type PageProps = {
 }
 
 export default function SearchBar({ searchParams }: PageProps) {
-    const g = useTranslations("Global");
     const t = useTranslations("Properties");
 
-    // const [availableProperties, setAvailableProperties] = useState<string | null>(null);
     const [availableProperties, setAvailableProperties] = useState<any[] | null>(null);
-
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {

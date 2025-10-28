@@ -36,6 +36,7 @@ export async function POST(request: NextRequest) {
       await mkdir(uploadsDir, { recursive: true })
     } catch (error) {
       // Directory might already exist, ignore error
+      console.log(error);
     }
 
     // Save the file to public/uploads directory

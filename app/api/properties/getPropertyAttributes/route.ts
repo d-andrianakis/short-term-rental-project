@@ -1,15 +1,12 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { db } from "@/db/drizzle";
-import { propery_attributes, properties } from "@/db/schema";
-import { eq, and, inArray } from 'drizzle-orm';
+import { propery_attributes } from "@/db/schema";
+import { eq, inArray } from 'drizzle-orm';
  
 export async function POST(request: NextRequest) {
 
     const data = await request.json();
-
-    // const searchParams = request.nextUrl.searchParams;
-    // const availablePropertyIdsParam = searchParams.get('availablePropertyIds');
 
     // Parse param into an array of numbers (or strings depending on your schema)
     const availablePropertyIdsArray: number[] = Object.values(data);

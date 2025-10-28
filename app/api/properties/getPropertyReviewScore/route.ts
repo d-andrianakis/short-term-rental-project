@@ -1,9 +1,8 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
 import { db } from "@/db/drizzle";
-import { property, property_reviews } from "@/db/schema";
+import { property_reviews } from "@/db/schema";
 import { avg, eq } from 'drizzle-orm';
-import { numeric } from 'drizzle-orm/sqlite-core';
  
 export async function POST(request: NextRequest) {
 

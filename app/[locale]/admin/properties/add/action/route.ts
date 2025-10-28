@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db/drizzle";
-import { property } from "@/db/schema"; // Your schema file
-import { eq } from "drizzle-orm";
+import { property } from "@/db/schema";
 
 export async function POST(req: Request) {
   try {

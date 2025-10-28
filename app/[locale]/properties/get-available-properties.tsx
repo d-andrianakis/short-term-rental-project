@@ -1,12 +1,4 @@
-import { NextResponse } from 'next/server'
-
 import { loadSearchParams  } from './searchParams'
-
-import { db } from '@/db/drizzle';
-import { properties, bookings } from '@/db/schema';
-
-import { and, lt, gt } from 'drizzle-orm';
-import { timestamp } from 'drizzle-orm/gel-core';
 
 export default async function getAvailableProperties(params: any, filter: any = null) {
   const { city, datetime, endtime } = await loadSearchParams(params)

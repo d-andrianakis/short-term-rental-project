@@ -1,5 +1,3 @@
-import { ImageUploadForm } from '@/components/admin/settings/homepage/imageUploadForm'
-
 export default function AdminSettings() {
   return (
     <div className="container mx-auto py-8 px-4">

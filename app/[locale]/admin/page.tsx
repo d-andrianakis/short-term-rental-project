@@ -1,6 +1,4 @@
 "use server";
-import Link from "next/link";
-import { auth } from "@/lib/auth";
 
 import SettingsMenu from "@/components/menus/admin/settingsMenu";
 

@@ -8,7 +8,6 @@ import Loading from "./loading";
 
 import { Metadata } from 'next';
 
-import {NextIntlClientProvider} from 'next-intl';
 import { hasLocale } from 'next-intl';
 import { routing } from '../../../../../i18n/routing';
 import { notFound } from "next/navigation";

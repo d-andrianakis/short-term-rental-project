@@ -15,11 +15,6 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 
 import {NextIntlClientProvider} from 'next-intl';
-import { hasLocale } from 'next-intl';
-import { routing } from '../../i18n/routing';
-import { notFound } from "next/navigation";
-
-import { headers } from 'next/headers';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -1,11 +1,7 @@
 import {useTranslations} from 'next-intl';
 
-import Image from "next/image";
-
 import HeroSlider from "@/components/home/hero-slider";
 import FeaturedListings from "@/components/home/featured-listings";
-
-import HomepageGallery from "@/components/home/homepage-gallery"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 

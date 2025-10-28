@@ -9,8 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Progress } from "@/components/ui/progress"
 import { toast } from "sonner"
 import { Upload, X, CheckCircle, AlertCircle, ImageIcon } from "lucide-react"
-
-import { createUpdateSetting } from "../../actions/createUpdateSetting";
+import Image from "next/image"
 
 interface UploadedFile {
   file: File
@@ -203,7 +202,7 @@ export function ImageUploadForm() {
                 <div key={file.id} className="flex items-center gap-4 p-4 border rounded-lg bg-card">
                   <div className="flex-shrink-0">
                     <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center overflow-hidden">
-                      <img
+                      <Image
                         src={file.preview || "/placeholder.svg"}
                         alt={file.file.name}
                         className="w-full h-full object-cover"

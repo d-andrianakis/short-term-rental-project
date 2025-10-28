@@ -15,7 +15,7 @@ export default function PropertyCard({ property, idx }: { property: any, idx: st
   return (
     <div key={`property-${idx}`}>
       <Link href={`/properties/property/${property.property?.slug ?? idx}`}>
-        <Card className="pt-0 border-gray-300 hover:border-black">
+        <Card className="pt-0 border-gray-200 hover:border-black">
           <CardHeader
           className="relative w-full h-64 rounded-xl overflow-hidden"
           >
