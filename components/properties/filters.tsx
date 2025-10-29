@@ -3,6 +3,7 @@ import { useQueryState } from 'nuqs';
 
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Slider } from "@/components/ui/range-slider"
 
 import {
   Select,
@@ -24,10 +25,14 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
   const g = useTranslations("Global");
   const t = useTranslations("Properties");
 
+  const [value, setValue] = useState([25, 75])
+
   const [data, setData] = useState([]);
   const [attributes, setAttributes] = useState<any[]>([]);
 
   const [propertyType, setPropertyType] = useQueryState("propertyType", { defaultValue: "" });
+  const [minPrice, setMinPrice] = useQueryState("minPrice", { defaultValue: 0 });
+  const [maxPrice, setMaxPrice] = useQueryState("maxPrice", { defaultValue: 0 });
 
   // new state to control radio selection so items that share the same value
   // will all appear selected when that value is chosen
@@ -77,6 +82,11 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
 
   function setPropertyTypeFilter(value: string) {
     setPropertyType(value);
+  }
+
+  function setPriceRangeFilter(value: number[]) {
+    setMinPrice(value[0]);
+    setMaxPrice(value[1]);
   }
 
   return (
@@ -142,6 +152,19 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
               );
             })()
           }
+          <div className='mt-8'>
+            <Slider
+              value={value}
+              onValueChange={setValue}
+              onValueCommit={(value: number[]) => {setPriceRangeFilter(value); onFilter();}}
+              max={100}
+              step={1}
+            />
+            <div className="flex justify-between text-sm text-muted-foreground">
+              <span>Min: {value[0]}</span>
+              <span>Max: {value[1]}</span>
+            </div>
+          </div>
           </div>
         </div>
       )}

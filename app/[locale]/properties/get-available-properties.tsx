@@ -1,7 +1,7 @@
 import { loadSearchParams  } from './searchParams'
 
 export default async function getAvailableProperties(params: any, filter: any = null) {
-  const { city, datetime, endtime } = await loadSearchParams(params)
+  const { city, datetime, endtime, minPrice, maxPrice } = await loadSearchParams(params)
 
   if (city && datetime && endtime) {
   try {
@@ -9,6 +9,14 @@ export default async function getAvailableProperties(params: any, filter: any = 
       urlParams.set("city", city)
       urlParams.set("startTime", datetime)
       urlParams.set("endTime", endtime)
+
+      if (minPrice !== undefined && minPrice !== null) {
+        urlParams.set("minPrice", String(minPrice))
+      }
+
+      if (maxPrice !== undefined && maxPrice !== null) {
+        urlParams.set("maxPrice", String(maxPrice))
+      }
 
       if (filter) {
         urlParams.set("filterBy", filter);

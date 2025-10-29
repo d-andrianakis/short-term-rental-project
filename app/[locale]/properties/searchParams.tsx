@@ -8,7 +8,9 @@ import {
 export const propertySearchParams = {
   city: parseAsString,
   datetime: parseAsIsoDateTime,
-  endtime: parseAsIsoDateTime
+  endtime: parseAsIsoDateTime,
+  minPrice: parseAsString,
+  maxPrice: parseAsString
 }
 
 export const loadSearchParams = createLoader(propertySearchParams)

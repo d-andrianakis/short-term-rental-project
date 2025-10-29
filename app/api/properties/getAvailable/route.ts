@@ -10,6 +10,8 @@ export async function GET(request: NextRequest) {
   const startTime = searchParams.get('startTime');
   const endTime = searchParams.get('endTime');
   const filterBy = searchParams.get('filterBy') ?? null;
+  const minPrice = searchParams.get('minPrice') ?? null;
+  const maxPrice = searchParams.get('maxPrice') ?? null;
 
   function toTimestamp(datetime: string | Date): number {
     return new Date(datetime).getTime();
