@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
+import { useQueryState } from 'nuqs';
 
 import {useTranslations} from 'next-intl';
 
@@ -26,14 +27,22 @@ export default function SearchBar({ searchParams }: PageProps) {
     const [availableProperties, setAvailableProperties] = useState<any[] | null>(null);
     const [loading, setLoading] = useState(false)
 
+    // read current query params on the client so values are always up-to-date
+    const [city] = useQueryState("city", { defaultValue: "" });
+    const [datetime] = useQueryState("datetime", { defaultValue: "" });
+    const [endtime] = useQueryState("endtime", { defaultValue: "" });
+    const [minPrice] = useQueryState("minPrice", { defaultValue: undefined });
+    const [maxPrice] = useQueryState("maxPrice", { defaultValue: undefined });
+
     useEffect(() => {
       loadAvailableProperties()
-    }, [])
+    }, [city, datetime, endtime, minPrice, maxPrice]) // reload when any query param changes
   
     const loadAvailableProperties = async (filter?: string) => {
       try {
         setLoading(true)
-        const params = await searchParams
+        // pass a plain params object built from current query state
+        const params = { city, datetime, endtime, minPrice, maxPrice }
         const items = await getAvailableProperties(params, filter)
         setAvailableProperties(items)
       } catch (error) {
