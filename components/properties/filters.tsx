@@ -25,10 +25,14 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
   const g = useTranslations("Global");
   const t = useTranslations("Properties");
 
-  const [value, setValue] = useState([25, 75])
+  const [value, setValue] = useState([0, 100])
 
   const [data, setData] = useState([]);
   const [attributes, setAttributes] = useState<any[]>([]);
+
+  // slider min/max derived from property prices
+  const [sliderMin, setSliderMin] = useState<number>(0);
+  const [sliderMax, setSliderMax] = useState<number>(100);
 
   const [propertyType, setPropertyType] = useQueryState("propertyType", { defaultValue: "" });
   const [minPrice, setMinPrice] = useQueryState("minPrice", { defaultValue: 0 });
@@ -79,6 +83,23 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
 
     fetchData();
   }, [properties]); // re-run when properties changes
+
+  // update slider min/max (and reset range) whenever properties change
+  useEffect(() => {
+    const prices = Array.isArray(properties)
+      ? properties
+          .map((item: any) => Number(item?.property?.pricePerNight))
+          .filter((n: number) => !Number.isNaN(n))
+      : [];
+
+    const min = prices.length ? Math.min(...prices) : 0;
+    const max = prices.length ? Math.max(...prices) : 100;
+
+    setSliderMin(min);
+    setSliderMax(max);
+    // initialize/adjust slider value to the new bounds
+    setValue([min, max]);
+  }, [properties]);
 
   function setPropertyTypeFilter(value: string) {
     setPropertyType(value);
@@ -157,7 +178,8 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
               value={value}
               onValueChange={setValue}
               onValueCommit={(value: number[]) => {setPriceRangeFilter(value); onFilter();}}
-              max={100}
+              min={sliderMin}
+              max={sliderMax}
               step={1}
             />
             <div className="flex justify-between text-sm text-muted-foreground">
