@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 
 import { db } from "@/db/drizzle";
 import { bookings, properties, property, propery_attributes } from "@/db/schema";
-import { eq, and, lt, gt, notInArray } from 'drizzle-orm';
+import { eq, and, lt, gt, gte, lte, notInArray } from 'drizzle-orm';
  
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
@@ -12,6 +12,7 @@ export async function GET(request: NextRequest) {
   const filterBy = searchParams.get('filterBy') ?? null;
   const minPrice = searchParams.get('minPrice') ?? null;
   const maxPrice = searchParams.get('maxPrice') ?? null;
+  const whereConditions: any[] = [];
 
   function toTimestamp(datetime: string | Date): number {
     return new Date(datetime).getTime();
@@ -24,7 +25,6 @@ export async function GET(request: NextRequest) {
 
     const startDateTimestamp = toTimestamp(startDate);
     const endDateTimestamp = toTimestamp(endDate);
-
 
     if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
       return new Response('Invalid date format for startTime or endTime', { status: 400 });
@@ -47,12 +47,18 @@ export async function GET(request: NextRequest) {
 
     const conflictingIds = conflicting.map(c => c.propertyId);
 
+    if (minPrice && minPrice !== undefined) {
+      whereConditions.push(gte(property.pricePerNight, minPrice));
+    }
+    if (maxPrice && maxPrice !== undefined) {
+      whereConditions.push(lte(property.pricePerNight, maxPrice));
+    }
+
     let query;
     if (filterBy) {
       // ensure the filter value is a string so the DB param will be text (avoids text = integer)
       const filterValue = String(filterBy);
 
-      const whereConditions: any[] = [];
       if (conflictingIds.length > 0) {
         whereConditions.push(notInArray(properties.id, conflictingIds));
       }
@@ -65,16 +71,12 @@ export async function GET(request: NextRequest) {
         .leftJoin(property, eq(properties.id, property.id))
         .leftJoin(propery_attributes, eq(properties.id, propery_attributes.propertyId))
         .where(whereConditions.length ? and(...whereConditions) : undefined);
-
     } else {
       query = db
         .select({properties, property})
         .from(properties)
         .leftJoin(property, eq(properties.id, property.id))
-        .where(conflictingIds.length > 0
-          ? notInArray(properties.id, conflictingIds)
-          : undefined // if no conflicts, return all
-        );
+        .where(whereConditions.length ? and(...whereConditions) : undefined);
     }
 
     const available = await query;

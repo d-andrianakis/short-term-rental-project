@@ -86,6 +86,7 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
 
   // update slider min/max (and reset range) whenever properties change
   useEffect(() => {
+    // TODO: refactor code so that the min-max prices don't come from the available properties but insted they come from the properties available on the specified dates
     const prices = Array.isArray(properties)
       ? properties
           .map((item: any) => Number(item?.property?.pricePerNight))
@@ -149,7 +150,6 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
                     </RadioGroup>
                   )}
 
-                  {/* Render non-radio attributes as before */}
                   {otherAttrs.map((item: any) => {
                     const key = item.id ?? item.text ?? Math.random().toString(36).slice(2);
 
