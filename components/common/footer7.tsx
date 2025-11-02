@@ -31,7 +31,6 @@ const defaultSections = [
     title: "Product",
     links: [
       { name: "Overview", href: "#" },
-      { name: "Pricing", href: "#" },
       { name: "Marketplace", href: "#" },
       { name: "Features", href: "#" },
     ],
@@ -49,7 +48,6 @@ const defaultSections = [
     title: "Resources",
     links: [
       { name: "Help", href: "#" },
-      { name: "Sales", href: "#" },
       { name: "Advertise", href: "#" },
       { name: "Privacy", href: "#" },
     ],
@@ -57,9 +55,6 @@ const defaultSections = [
 ];
 
 const defaultSocialLinks = [
-  { icon: <FaInstagram className="size-5" />, href: "#", label: "Instagram" },
-  { icon: <FaFacebook className="size-5" />, href: "#", label: "Facebook" },
-  { icon: <FaTwitter className="size-5" />, href: "#", label: "Twitter" },
   { icon: <FaLinkedin className="size-5" />, href: "#", label: "LinkedIn" },
 ];
 
@@ -70,15 +65,15 @@ const defaultLegalLinks = [
 
 const Footer7 = ({
   logo = {
-    url: "https://www.shadcnblocks.com",
+    url: "https://www.dandrianakis.eu",
     src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
     alt: "logo",
     title: "Short Term Rental App",
   },
   sections = defaultSections,
-  description = "A collection of components for your startup business or side project.",
+  description = "Short Term Rental App demonstrator",
   socialLinks = defaultSocialLinks,
-  copyright = "© 2024 Shadcnblocks.com. All rights reserved.",
+  copyright = "dandrianakis.eu",
   legalLinks = defaultLegalLinks,
 }: Footer7Props) => {
   return (
