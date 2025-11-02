@@ -136,7 +136,7 @@ export function SearchForm() {
  
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 flex items-center gap-2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-end gap-2">
         <FormField
           control={form.control}
           name="city"
@@ -146,7 +146,7 @@ export function SearchForm() {
               <FormControl>
                 <Input type="text" value={city} onChange={(e) => setCity(e.target.value || null)} placeholder="City" className="min-w-52 max-w-md" />
               </FormControl>
-              <FormDescription></FormDescription>
+              {/* <FormDescription></FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
@@ -156,7 +156,7 @@ export function SearchForm() {
           name="time"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Booking start</FormLabel>
+              <FormLabel className="text-primary">Booking start</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -245,8 +245,8 @@ export function SearchForm() {
                   </div>
                 </PopoverContent>
               </Popover>
-              <FormDescription>
-              </FormDescription>
+              {/* <FormDescription>
+              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
@@ -256,7 +256,7 @@ export function SearchForm() {
           name="endtime"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Booking end</FormLabel>
+              <FormLabel className="text-primary">Booking end</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -345,13 +345,13 @@ export function SearchForm() {
                   </div>
                 </PopoverContent>
               </Popover>
-              <FormDescription>
-              </FormDescription>
+              {/* <FormDescription>
+              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button variant="secondary" size="icon" className="size-8" type="submit">
+        <Button size="icon" className="size-9" type="submit">
           <Search/>
         </Button>
       </form>

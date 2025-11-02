@@ -5,30 +5,23 @@ import Search from "@/components/common/search";
 
 export default function Header() {
     return (
-        <header className="flex justify-between items-center p-4 bg-gray-800 text-white">
-            <h1 className="text-2xl">My App</h1>
-            <nav>
-                <ul className="flex space-x-4">
-                    <li>
-                        <Link href="/" className="hover:text-gray-400">
-                        Home
+        <header className="p-4 bg-primary-foreground text-white">
+            <div className="flex items-center container max-[1600px]:px-5 mx-auto">
+                <div className="w-1/4">
+                    <h1 className="text-2xl text-primary">
+                        <Link href="/">
+                            Home
                         </Link>
-                    </li>
-                    <li>
-                        <Link href="/about" className="hover:text-gray-400">
-                        About
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/contact" className="hover:text-gray-400">
-                        Contact
-                        </Link>
-                    </li>
-                </ul>
-            </nav>
-            <Search />
-            <SignoutButton />
-            <ModeToggle />
+                    </h1>
+                </div>
+                <div className="w-1/2">
+                    <Search />
+                </div>
+                <div className="w-1/4 flex justify-end gap-2">
+                    <SignoutButton />
+                    <ModeToggle />
+                </div>
+            </div>
         </header>
     );
 }
