@@ -155,7 +155,7 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
 
                     return (
                       <div key={key} className="mb-4">
-                        <Label>{item.text}</Label>
+                        <Label className='mb-3'>{item.text}</Label>
                         <Select onValueChange={(v) => onFilter(v)}>
                           <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder={item.placeholder ?? 'Select'} />

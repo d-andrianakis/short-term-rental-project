@@ -144,7 +144,7 @@ export function SearchForm() {
             <FormItem>
               <FormLabel>City</FormLabel>
               <FormControl>
-                <Input type="text" value={city} onChange={(e) => setCity(e.target.value || null)} placeholder="City" className="min-w-52 max-w-md" />
+                <Input type="text" value={city} onChange={(e) => setCity(e.target.value || null)} placeholder="City" className="min-w-52 max-w-md text-primary border-0 shadow-sm" />
               </FormControl>
               {/* <FormDescription></FormDescription> */}
               <FormMessage />
@@ -163,7 +163,7 @@ export function SearchForm() {
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-full pl-3 text-left font-normal text-primary",
+                        "w-full pl-3 text-left font-normal text-primary border-0 shadow-sm",
                         !field.value && "text-muted-foreground"
                       )}
                     >
@@ -263,7 +263,7 @@ export function SearchForm() {
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-full pl-3 text-left font-normal text-primary",
+                        "w-full pl-3 text-left font-normal text-primary border-0 shadow-sm",
                         !field.value && "text-muted-foreground"
                       )}
                     >
