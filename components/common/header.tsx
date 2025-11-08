@@ -7,8 +7,20 @@ import { ModeToggle } from "@/components/common/mode-toggle";
 import Search from "@/components/common/search";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { Search as SearchIcon } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 export default function Header() {
+    const [openItem, setOpenItem] = useState<string | undefined>("");
+    const mobileAccordionName = "mobile-search-accordion";
+
     const { theme } = useTheme();
     const [isMobile, setIsMobile] = useState<boolean>(() =>
         typeof window !== "undefined" ? window.innerWidth < 768 : false
@@ -44,13 +56,35 @@ export default function Header() {
     // Mobile template (below 768px)
     const MobileLayout = (
         <header className="p-4 bg-primary-foreground text-white">
-            <div className="container max-[1600px]:px-5 mx-auto flex flex-col items-center gap-3">
-                <Link href="/" className="block">
-                    <Image src={logoSrc} width={90} height={90} alt="logo" />
-                </Link>
+            <div className="container mx-auto flex flex-col items-center gap-3">
+                <div className="relative w-full flex flex-col items-center">
+                    <Link href="/" className="block">
+                        <Image src={logoSrc} width={100} height={100} alt="logo" />
+                    </Link>
+                    <Button 
+                        size="icon" 
+                        className="size-9 absolute right-0 bottom-0"
+                        onClick={() =>
+                            setOpenItem(openItem === mobileAccordionName ? undefined : mobileAccordionName)
+                        }
+                        >
+                        <SearchIcon/>
+                    </Button>
+                </div>
 
-                <div className="w-full px-2">
-                    <Search />
+                <div className="w-full px-2">                    
+                    <Accordion 
+                        type="single"
+                        collapsible
+                        value={openItem}
+                        onValueChange={setOpenItem}
+                    >
+                        <AccordionItem value={ mobileAccordionName }>
+                            <AccordionContent>
+                                <Search className="flex-col"/>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
                 </div>
 
                 <div className="flex gap-2">
