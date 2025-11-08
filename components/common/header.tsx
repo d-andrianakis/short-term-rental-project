@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from 'next-intl';
 import Link from "next/link";
 import Image from "next/image";
 import SignoutButton from "@/components/common/signout";
@@ -8,16 +9,28 @@ import Search from "@/components/common/search";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Search as SearchIcon } from 'lucide-react';
+import { TextAlignStartIcon } from '@/components/ui/icons/lucide-text-align-start';
+
 import { Button } from "@/components/ui/button";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,
 } from "@/components/ui/accordion"
 
 export default function Header() {
+    const g = useTranslations("Global");
+
     const [openItem, setOpenItem] = useState<string | undefined>("");
     const mobileAccordionName = "mobile-search-accordion";
 
@@ -28,6 +41,8 @@ export default function Header() {
 
     const logoSrc =
         theme === "dark" ? "/assets/common/logo-dark.png" : "/assets/common/logo-light.png";
+    const menuToggleColor =
+        theme === "dark" ? "white" : "black";
 
     useEffect(() => {
         if (typeof window === "undefined") return;
@@ -57,19 +72,43 @@ export default function Header() {
     const MobileLayout = (
         <header className="p-4 bg-primary-foreground text-white">
             <div className="container mx-auto flex flex-col items-center gap-3">
-                <div className="relative w-full flex flex-col items-center">
-                    <Link href="/" className="block">
-                        <Image src={logoSrc} width={100} height={100} alt="logo" />
-                    </Link>
-                    <Button 
-                        size="icon" 
-                        className="size-9 absolute right-0 bottom-0"
-                        onClick={() =>
-                            setOpenItem(openItem === mobileAccordionName ? undefined : mobileAccordionName)
-                        }
-                        >
-                        <SearchIcon/>
-                    </Button>
+                <div className="w-full flex items-end">
+                    <div className="w-2/12">
+                        <Sheet>
+                            <SheetTrigger>
+                                <TextAlignStartIcon color={ menuToggleColor }/>
+                            </SheetTrigger>
+                            <SheetContent side="left" className="w-[90vw]">
+                                <SheetHeader>
+                                <SheetTitle>{ g('menu') }</SheetTitle>
+                                <SheetDescription>
+                                    This action cannot be undone. This will permanently delete your account
+                                    and remove your data from our servers.
+                                </SheetDescription>
+                                </SheetHeader>
+                                <div>
+                                    <SignoutButton />
+                                    <ModeToggle />
+                                </div>
+                            </SheetContent>
+                        </Sheet>
+                    </div>
+                    <div className="w-8/12 flex justify-center">
+                        <Link href="/" className="block">
+                            <Image src={logoSrc} width={100} height={100} alt="logo" />
+                        </Link>
+                    </div>
+                    <div className="w-2/12 flex justify-end">
+                        <Button 
+                            size="icon" 
+                            className="size-9"
+                            onClick={() =>
+                                setOpenItem(openItem === mobileAccordionName ? undefined : mobileAccordionName)
+                            }
+                            >
+                            <SearchIcon/>
+                        </Button>
+                    </div>
                 </div>
 
                 <div className="w-full px-2">                    
@@ -85,11 +124,6 @@ export default function Header() {
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
-                </div>
-
-                <div className="flex gap-2">
-                    <SignoutButton />
-                    <ModeToggle />
                 </div>
             </div>
         </header>
