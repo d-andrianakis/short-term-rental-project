@@ -3,15 +3,16 @@
 import { useTranslations } from 'next-intl';
 import Link from "next/link";
 import Image from "next/image";
-import SignoutButton from "@/components/common/signout";
-import { ModeToggle } from "@/components/common/mode-toggle";
-import Search from "@/components/common/search";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Search as SearchIcon } from 'lucide-react';
-import { TextAlignStartIcon } from '@/components/ui/icons/lucide-text-align-start';
 
+import { TextAlignStartIcon } from '@/components/ui/icons/lucide-text-align-start';
+import SignoutButton from "@/components/common/signout";
+import { ModeToggle } from "@/components/common/mode-toggle";
+import Search from "@/components/common/search";
 import { Button } from "@/components/ui/button";
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 import {
   Sheet,
@@ -89,6 +90,9 @@ export default function Header() {
                                 <div>
                                     <SignoutButton />
                                     <ModeToggle />
+                                </div>
+                                <div>
+                                    <LanguageSwitcher />
                                 </div>
                             </SheetContent>
                         </Sheet>
