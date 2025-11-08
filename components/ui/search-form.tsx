@@ -19,7 +19,6 @@ import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -145,8 +144,8 @@ export function SearchForm({ className = "" }: SearchFormProps) {
           control={form.control}
           name="city"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>City</FormLabel>
+            <FormItem className="w-full">
+              <FormLabel className="text-primary">City</FormLabel>
               <FormControl>
                 <Input type="text" value={city} onChange={(e) => setCity(e.target.value || null)} placeholder="City" className="min-w-52 max-w-md text-primary border-0 shadow-sm" />
               </FormControl>
@@ -159,7 +158,7 @@ export function SearchForm({ className = "" }: SearchFormProps) {
           control={form.control}
           name="time"
           render={({ field }) => (
-            <FormItem className="flex flex-col">
+            <FormItem className="flex flex-col w-full">
               <FormLabel className="text-primary">Booking start</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
@@ -259,7 +258,7 @@ export function SearchForm({ className = "" }: SearchFormProps) {
           control={form.control}
           name="endtime"
           render={({ field }) => (
-            <FormItem className="flex flex-col">
+            <FormItem className="flex flex-col w-full">
               <FormLabel className="text-primary">Booking end</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>

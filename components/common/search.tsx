@@ -8,7 +8,7 @@ interface SearchProps {
 
 export default function Search({ className = "" }: SearchProps) {
   return (
-    <div className="w-fit flex">
+    <div className="w-full flex">
       <SearchForm className={ className }/>
     </div>
   );

@@ -87,11 +87,11 @@ export default function Header() {
                                     and remove your data from our servers.
                                 </SheetDescription>
                                 </SheetHeader>
-                                <div>
+                                <div className="px-4">
                                     <SignoutButton />
                                     <ModeToggle />
                                 </div>
-                                <div>
+                                <div className="px-4">
                                     <LanguageSwitcher />
                                 </div>
                             </SheetContent>
@@ -115,7 +115,7 @@ export default function Header() {
                     </div>
                 </div>
 
-                <div className="w-full px-2">                    
+                <div className="w-full">                    
                     <Accordion 
                         type="single"
                         collapsible
@@ -124,7 +124,7 @@ export default function Header() {
                     >
                         <AccordionItem value={ mobileAccordionName }>
                             <AccordionContent>
-                                <Search className="flex-col"/>
+                                <Search className="flex-col w-full"/>
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
