@@ -48,8 +48,12 @@ const FormSchema = z.object({
     path: ["endtime"],
   }
 );
+
+interface SearchFormProps {
+  className?: string;
+}
  
-export function SearchForm() {
+export function SearchForm({ className = "" }: SearchFormProps) {
   const setFromDate = usePropertyStore((state) => state.setFromDate);
   const setToDate = usePropertyStore((state) => state.setToDate);
 
@@ -136,7 +140,7 @@ export function SearchForm() {
  
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex items-end gap-2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className={cn("flex items-end gap-2", className) }>
         <FormField
           control={form.control}
           name="city"

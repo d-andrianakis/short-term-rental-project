@@ -2,12 +2,14 @@
 
 import { SearchForm } from "@/components/ui/search-form";
 
-export default function Search() {
-    return (
-        <>
-            <div className="w-fit flex">
-                <SearchForm />
-            </div>
-        </>  
-    )
+interface SearchProps {
+  className?: string;
+}
+
+export default function Search({ className = "" }: SearchProps) {
+  return (
+    <div className="w-fit flex">
+      <SearchForm className={ className }/>
+    </div>
+  );
 }
