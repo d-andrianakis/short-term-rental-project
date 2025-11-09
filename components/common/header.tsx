@@ -1,5 +1,7 @@
 "use client";
 
+import { useIsMobile } from "@/hooks/use-mobile"
+
 import { useTranslations } from 'next-intl';
 import Link from "next/link";
 import Image from "next/image";
@@ -36,38 +38,12 @@ export default function Header() {
     const mobileAccordionName = "mobile-search-accordion";
 
     const { theme } = useTheme();
-    const [isMobile, setIsMobile] = useState<boolean>(() =>
-        typeof window !== "undefined" ? window.innerWidth < 768 : false
-    );
+    const isMobile = useIsMobile()
 
     const logoSrc =
         theme === "dark" ? "/assets/common/logo-dark.png" : "/assets/common/logo-light.png";
     const menuToggleColor =
         theme === "dark" ? "white" : "black";
-
-    useEffect(() => {
-        if (typeof window === "undefined") return;
-
-        const mq = window.matchMedia("(max-width: 767px)");
-        const handleChange = (e: MediaQueryListEvent | MediaQueryList) => setIsMobile(e.matches);
-
-        // set initial state (matchMedia may not fire immediately in some browsers)
-        handleChange(mq);
-
-        if (mq.addEventListener) {
-            mq.addEventListener("change", handleChange as EventListener);
-        } else {
-            mq.addListener(handleChange);
-        }
-
-        return () => {
-            if (mq.removeEventListener) {
-                mq.removeEventListener("change", handleChange as EventListener);
-            } else {
-                mq.removeListener(handleChange);
-            }
-        };
-    }, []);
 
     // Mobile template (below 768px)
     const MobileLayout = (
