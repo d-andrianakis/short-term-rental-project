@@ -79,7 +79,7 @@ export default function Header() {
                             <SheetTrigger>
                                 <TextAlignStartIcon color={ menuToggleColor }/>
                             </SheetTrigger>
-                            <SheetContent side="left" className="w-[90vw]">
+                            <SheetContent side="left" className="w-[90vw] border-r-0">
                                 <SheetHeader>
                                 <SheetTitle>{ g('menu') }</SheetTitle>
                                 <SheetDescription>

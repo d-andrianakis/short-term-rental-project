@@ -35,7 +35,7 @@ export default function LanguageSwitcher() {
             <SelectValue placeholder={ locale } />
             {locale.toUpperCase()}
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="border-0">
             {availableLocales.map((loc) => (
                 <SelectItem key={loc} value={loc.toUpperCase()}>
                     {loc.toUpperCase()}
