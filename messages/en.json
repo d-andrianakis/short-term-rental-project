@@ -6,7 +6,8 @@
     "check_in_date": "Check-in date",
     "check_out_date": "Check-out date",
     "search": "Search",
-    "filters": "Filters"
+    "filters": "Filters",
+    "city_placeholder": "e.g Paris"
   },
   "HomePage": {
     "title": "Hello world!"

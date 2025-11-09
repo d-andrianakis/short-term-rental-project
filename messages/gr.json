@@ -6,7 +6,8 @@
     "check_in_date": "Ημ/νία check-in",
     "check_out_date": "Ημ/νία check-out",
     "search": "Αναζήτηση",
-    "filters": "Φίλτρα"
+    "filters": "Φίλτρα",
+    "city_placeholder": "π.χ. Παρίσι"
   },
   "HomePage": {
     "title": "Καλημέρα κόσμε!"

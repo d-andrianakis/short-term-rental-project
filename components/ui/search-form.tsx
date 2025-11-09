@@ -38,6 +38,9 @@ import { Search } from 'lucide-react';
 import { toast } from "sonner";
  
 const FormSchema = z.object({
+  // city: z.string({
+  //   required_error: "A city is required",
+  // }),
   time: z.date({
     required_error: "A date and time is required.",
   }),
@@ -150,14 +153,13 @@ export function SearchForm({ className = "" }: SearchFormProps) {
       <form onSubmit={form.handleSubmit(onSubmit)} className={cn("flex items-end gap-2", className) }>
         <FormField
           control={form.control}
-          name={ g('city') }
+          name="city"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel className="text-primary">City</FormLabel>
+              <FormLabel className="text-primary">{ g('city') }</FormLabel>
               <FormControl>
-                <Input type="text" value={city} onChange={(e) => setCity(e.target.value || null)} placeholder={ g('city') } className="min-w-52 max-w-md text-primary border-0 shadow-sm bg-background hover:bg-accent" />
+                <Input type="text" value={city} onChange={(e) => setCity(e.target.value || null)} placeholder={ g('city_placeholder') } className="min-w-52 max-w-md text-primary border-0 shadow-sm bg-background hover:bg-accent" />
               </FormControl>
-              {/* <FormDescription></FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
@@ -187,7 +189,7 @@ export function SearchForm({ className = "" }: SearchFormProps) {
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
+                <PopoverContent className="w-auto p-0 border-0">
                   <div className="sm:flex">
                     <Calendar
                       mode="single"
@@ -256,8 +258,6 @@ export function SearchForm({ className = "" }: SearchFormProps) {
                   </div>
                 </PopoverContent>
               </Popover>
-              {/* <FormDescription>
-              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
@@ -287,7 +287,7 @@ export function SearchForm({ className = "" }: SearchFormProps) {
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
+                <PopoverContent className="w-auto p-0 border-0">
                   <div className="sm:flex">
                     <Calendar
                       mode="single"
