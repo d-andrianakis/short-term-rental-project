@@ -122,7 +122,7 @@ export default function Header() {
                     <Search />
                 </div>
                 <div className="w-1/4 flex justify-end gap-2 self-end">
-                    <SignoutButton />
+                    <LanguageSwitcher />
                     <ModeToggle />
                 </div>
             </div>
