@@ -75,7 +75,7 @@ export default function SearchBar({ searchParams }: PageProps) {
         { isMobile ? 
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant={"secondary"}>{ g('filters') }</Button>
+            <Button variant={"secondary"} className="mb-4">{ g('filters') }</Button>
           </SheetTrigger>
           <SheetContent className="w-[90vw] border-r-0">
             <SheetHeader>
@@ -83,7 +83,7 @@ export default function SearchBar({ searchParams }: PageProps) {
                 { g('filters') }
               </SheetTitle>
             </SheetHeader>
-            <aside className="w-full">
+            <aside className="w-full px-4">
               <Filters
                 loading={loading}
                 onFilter={loadAvailableProperties}
