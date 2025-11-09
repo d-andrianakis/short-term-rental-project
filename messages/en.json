@@ -1,7 +1,11 @@
 {
   "Global": {
     "loading": "Loading...",
-    "menu": "Menu"
+    "menu": "Menu",
+    "city": "City",
+    "check_in_date": "Check-in date",
+    "check_out_date": "Check-out date",
+    "search": "Search"
   },
   "HomePage": {
     "title": "Hello world!"

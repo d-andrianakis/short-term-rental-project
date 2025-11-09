@@ -1,5 +1,9 @@
 "use client";
 
+import { useTranslations } from 'next-intl';
+
+import { useIsMobile } from "@/hooks/use-mobile"
+
 import { useEffect } from "react";
 import { useQueryState } from "nuqs";
 import { useRouter } from "next/navigation";
@@ -53,6 +57,10 @@ interface SearchFormProps {
 }
  
 export function SearchForm({ className = "" }: SearchFormProps) {
+  const g = useTranslations("Global");
+
+  const isMobile = useIsMobile()
+
   const setFromDate = usePropertyStore((state) => state.setFromDate);
   const setToDate = usePropertyStore((state) => state.setToDate);
 
@@ -142,12 +150,12 @@ export function SearchForm({ className = "" }: SearchFormProps) {
       <form onSubmit={form.handleSubmit(onSubmit)} className={cn("flex items-end gap-2", className) }>
         <FormField
           control={form.control}
-          name="city"
+          name={ g('city') }
           render={({ field }) => (
             <FormItem className="w-full">
               <FormLabel className="text-primary">City</FormLabel>
               <FormControl>
-                <Input type="text" value={city} onChange={(e) => setCity(e.target.value || null)} placeholder="City" className="min-w-52 max-w-md text-primary border-0 shadow-sm" />
+                <Input type="text" value={city} onChange={(e) => setCity(e.target.value || null)} placeholder={ g('city') } className="min-w-52 max-w-md text-primary border-0 shadow-sm bg-background hover:bg-accent" />
               </FormControl>
               {/* <FormDescription></FormDescription> */}
               <FormMessage />
@@ -159,7 +167,7 @@ export function SearchForm({ className = "" }: SearchFormProps) {
           name="time"
           render={({ field }) => (
             <FormItem className="flex flex-col w-full">
-              <FormLabel className="text-primary">Booking start</FormLabel>
+              <FormLabel className="text-primary">{ g('check_in_date') }</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -259,7 +267,7 @@ export function SearchForm({ className = "" }: SearchFormProps) {
           name="endtime"
           render={({ field }) => (
             <FormItem className="flex flex-col w-full">
-              <FormLabel className="text-primary">Booking end</FormLabel>
+              <FormLabel className="text-primary">{ g('check_out_date') }</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -354,9 +362,16 @@ export function SearchForm({ className = "" }: SearchFormProps) {
             </FormItem>
           )}
         />
+        {isMobile ? 
+        <Button size="icon" className="w-full" type="submit">
+          {isMobile && g('search')}
+          <Search/>
+        </Button> : 
         <Button size="icon" className="size-9" type="submit">
           <Search/>
         </Button>
+        }
+        
       </form>
     </Form>
   );
