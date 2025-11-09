@@ -5,7 +5,8 @@
     "city": "City",
     "check_in_date": "Check-in date",
     "check_out_date": "Check-out date",
-    "search": "Search"
+    "search": "Search",
+    "filters": "Filters"
   },
   "HomePage": {
     "title": "Hello world!"

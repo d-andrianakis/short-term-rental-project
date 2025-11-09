@@ -1,5 +1,6 @@
 'use client'
 
+import { useIsMobile } from "@/hooks/use-mobile"
 import { useEffect, useState } from "react";
 import { useQueryState } from 'nuqs';
 
@@ -17,11 +18,22 @@ import GoogleMapComponent from '@/components/maps/Map';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+
 type PageProps = {
   searchParams: Promise<SearchParams>
 }
 
 export default function SearchBar({ searchParams }: PageProps) {
+    const isMobile = useIsMobile()
+
+    const g = useTranslations("Global");
     const t = useTranslations("Properties");
 
     const [availableProperties, setAvailableProperties] = useState<any[] | null>(null);
@@ -59,15 +71,37 @@ export default function SearchBar({ searchParams }: PageProps) {
     ];
 
     return (
-      <div className="flex space-x-5">
+      <div className={`flex space-x-5 ${isMobile ? 'flex-col' : null}`}>
+        { isMobile ? 
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant={"secondary"}>{ g('filters') }</Button>
+          </SheetTrigger>
+          <SheetContent className="w-[90vw] border-r-0">
+            <SheetHeader>
+              <SheetTitle>
+                { g('filters') }
+              </SheetTitle>
+            </SheetHeader>
+            <aside className="w-full">
+              <Filters
+                loading={loading}
+                onFilter={loadAvailableProperties}
+                properties={availableProperties}
+              />
+              
+            </aside>
+          </SheetContent>
+        </Sheet> :
         <aside className="w-1/6">
           <Filters
             loading={loading}
             onFilter={loadAvailableProperties}
             properties={availableProperties}
           />
-        </aside>
-        <div className="w-5/6">
+        </aside> }
+
+        <div className={ isMobile ? "w-full" : "w-5/6" }>
         <Popover>
           <PopoverTrigger asChild>
             <Button variant="secondary">
