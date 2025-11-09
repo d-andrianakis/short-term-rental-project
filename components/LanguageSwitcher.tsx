@@ -1,5 +1,6 @@
 'use client';
 
+import { useParams } from 'next/navigation'
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
@@ -22,9 +23,16 @@ export default function LanguageSwitcher() {
   const handleChange = (newLocale: string) => {
     // Replace the current locale segment in the URL
     const segments = pathname.split('/');
-    segments[1] = newLocale;
+    if (locale == 'en' || locale == 'EN') {
+      segments.splice(1, 0, newLocale)
+    } else {
+      segments[1] = newLocale;
+    }
+    
     router.push(segments.join('/'));
   };
+
+  
 
   return (
     <Select
