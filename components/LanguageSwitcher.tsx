@@ -5,6 +5,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
 
+import { useQueryState, parseAsIsoDateTime, parseAsString } from 'nuqs'
+
 import {
   Select,
   SelectContent,
@@ -14,6 +16,19 @@ import {
 } from "@/components/ui/select"
 
 export default function LanguageSwitcher() {
+  const [city] = useQueryState('city', parseAsString)
+  const [datetime] = useQueryState('datetime', parseAsIsoDateTime)
+  const [endtime] = useQueryState('endtime', parseAsIsoDateTime)
+  const [minPrice] = useQueryState('minPrice', parseAsString)
+  const [maxPrice] = useQueryState('maxPrice', parseAsString)
+
+  const urlParams = new URLSearchParams()
+  if (city) urlParams.set("city", city);
+  if (datetime) urlParams.set("datetime", new Date(datetime).toISOString());
+  if (endtime) urlParams.set("endtime", new Date(endtime).toISOString());
+  if (minPrice) urlParams.set("minPrice", minPrice);
+  if (maxPrice) urlParams.set("maxPrice", maxPrice);
+
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
@@ -23,13 +38,16 @@ export default function LanguageSwitcher() {
   const handleChange = (newLocale: string) => {
     // Replace the current locale segment in the URL
     const segments = pathname.split('/');
-    if (locale == 'en' || locale == 'EN') {
-      segments.splice(1, 0, newLocale)
-    } else {
-      segments[1] = newLocale;
-    }
     
-    router.push(segments.join('/'));
+    if (locale == 'en' || locale == 'EN') {
+      segments.splice(1, 0, newLocale.toLocaleLowerCase())
+    } else {
+      segments[1] = newLocale.toLocaleLowerCase();
+    }
+
+    const newUrl = `${segments.join('/')}?${urlParams.toString()}`
+    
+    router.push(newUrl);
   };
 
   
@@ -39,7 +57,7 @@ export default function LanguageSwitcher() {
         value={locale}
         onValueChange={(e) => handleChange(e)}
     >
-        <SelectTrigger>
+        <SelectTrigger className='text-primary'>
             <SelectValue placeholder={ locale } />
             {locale.toUpperCase()}
         </SelectTrigger>
