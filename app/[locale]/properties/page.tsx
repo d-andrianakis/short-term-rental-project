@@ -72,27 +72,7 @@ export default function SearchBar({ searchParams }: PageProps) {
 
     return (
       <div className={`flex space-x-5 ${isMobile ? 'flex-col' : null}`}>
-        { isMobile ? 
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant={"secondary"} className="mb-4">{ g('filters') }</Button>
-          </SheetTrigger>
-          <SheetContent className="w-[90vw] border-r-0">
-            <SheetHeader>
-              <SheetTitle>
-                { g('filters') }
-              </SheetTitle>
-            </SheetHeader>
-            <aside className="w-full px-4">
-              <Filters
-                loading={loading}
-                onFilter={loadAvailableProperties}
-                properties={availableProperties}
-              />
-              
-            </aside>
-          </SheetContent>
-        </Sheet> :
+        { !isMobile &&
         <aside className="w-1/6">
           <Filters
             loading={loading}
@@ -102,16 +82,52 @@ export default function SearchBar({ searchParams }: PageProps) {
         </aside> }
 
         <div className={ isMobile ? "w-full" : "w-5/6" }>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="secondary">
-              Open map view
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-7xl">
-            <GoogleMapComponent locations={locations} />
-          </PopoverContent>
-        </Popover>
+        { isMobile ?
+          <div className="grid grid-cols-2 gap-2">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="secondary" >
+                  {t('map_view')}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-full">
+                <GoogleMapComponent locations={locations} />
+              </PopoverContent>
+            </Popover>
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button>{ g('filters') }</Button>
+              </SheetTrigger>
+              <SheetContent className="w-[90vw] border-r-0">
+                <SheetHeader>
+                  <SheetTitle>
+                    { g('filters') }
+                  </SheetTitle>
+                </SheetHeader>
+                <aside className="w-full px-4">
+                  <Filters
+                    loading={loading}
+                    onFilter={loadAvailableProperties}
+                    properties={availableProperties}
+                  />
+                  
+                </aside>
+              </SheetContent>
+            </Sheet>
+          </div>
+        :
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="secondary">
+                Open map view
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-7xl">
+              <GoogleMapComponent locations={locations} />
+            </PopoverContent>
+          </Popover>
+        }
+        
           {loading ? (
           <Loading />
         ) : Array.isArray(availableProperties) && availableProperties.length > 0 ? (
