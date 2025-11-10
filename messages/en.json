@@ -13,7 +13,8 @@
     "title": "Hello world!"
   }, 
   "Properties": {
-    "no_properties": "No properties found!"
+    "no_properties": "No properties found!",
+    "map_view": "Open Map view"
   },
   "Property": {
     "check_in_date": "Check-in date",

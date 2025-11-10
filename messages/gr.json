@@ -13,7 +13,8 @@
     "title": "Καλημέρα κόσμε!"
   }, 
   "Properties": {
-    "no_properties": "Δε βρέθηκαν ακίνητα!"
+    "no_properties": "Δε βρέθηκαν ακίνητα!",
+    "map_view": "Προβολή χάρτη"
   },
   "Property": {
     "check_in_date": "Ημ/νία check-in",
