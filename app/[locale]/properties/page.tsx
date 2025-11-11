@@ -73,7 +73,7 @@ export default function SearchBar({ searchParams }: PageProps) {
     return (
       <div className={`flex space-x-5 ${isMobile ? 'flex-col' : null}`}>
         { !isMobile &&
-        <aside className="w-1/6">
+        <aside className="w-1/4 xl:w-1/6">
           <Filters
             loading={loading}
             onFilter={loadAvailableProperties}
@@ -81,7 +81,7 @@ export default function SearchBar({ searchParams }: PageProps) {
           />
         </aside> }
 
-        <div className={ isMobile ? "w-full" : "w-5/6" }>
+        <div className={ isMobile ? "w-full" : "w-3/4 xl:w-5/6" }>
         { isMobile ?
           <div className="grid grid-cols-2 gap-2">
             <Popover>

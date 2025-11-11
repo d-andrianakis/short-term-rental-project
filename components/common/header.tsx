@@ -112,7 +112,7 @@ export default function Header() {
     // Desktop template (768px and up)
     const DesktopLayout = (
         <header className="p-4 bg-primary-foreground text-white">
-            <div className="flex items-center container max-[1600px]:px-5 mx-auto">
+            <div className="flex items-center container mx-auto">
                 <div className="w-1/4 self-end">
                     <Link href="/">
                         <Image src={logoSrc} width={100} height={100} alt="logo" />
