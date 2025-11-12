@@ -37,11 +37,16 @@ export default function Header() {
     const [openItem, setOpenItem] = useState<string | undefined>("");
     const mobileAccordionName = "mobile-search-accordion";
 
-    const { theme } = useTheme();
+    const { theme, systemTheme } = useTheme();
     const isMobile = useIsMobile()
 
-    const logoSrc =
-        theme === "dark" ? "/assets/common/logo-dark.png" : "/assets/common/logo-light.png";
+    const currentTheme = theme === "system" ? systemTheme : theme;
+
+  // Choose the logo based on theme
+  const logoSrc =
+    currentTheme === "dark"
+      ? "/assets/common/logo-dark.png"
+      : "/assets/common/logo-light.png";
     const menuToggleColor =
         theme === "dark" ? "white" : "black";
 
