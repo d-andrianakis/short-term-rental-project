@@ -3,10 +3,7 @@
 
 @utility container {
   padding-inline: rem;
-
-  @variant md {
-    max-width: 1660px !important;
-  }
+  max-width: 1660px !important;
 }
 
 @custom-variant dark (&:is(.dark *));
