@@ -169,7 +169,7 @@ export function SearchFormProperty({ propertyId }: { propertyId: string }) {
           name="time"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Booking start</FormLabel>
+              <FormLabel>{ g('check_in_date') }</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -269,7 +269,7 @@ export function SearchFormProperty({ propertyId }: { propertyId: string }) {
           name="endtime"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Booking end</FormLabel>
+              <FormLabel>{ g('check_out_date') }</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
