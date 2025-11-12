@@ -9,7 +9,7 @@ import Loading from "./loading";
 import { Metadata } from 'next';
 
 import { hasLocale } from 'next-intl';
-import { routing } from '../../../../../i18n/routing';
+import { routing } from '@/i18n/routing';
 import { notFound } from "next/navigation";
 
 

@@ -2,19 +2,19 @@
 
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
-
-import { Button } from "@/components/ui/button";
 import { SearchFormProperty } from "@/components/ui/search-form property";
 
 import { useTranslations } from 'next-intl';
 
-import { usePropertyStore } from "@/store/usePropertyStore";
+// import { usePropertyStore } from "@/store/usePropertyStore";
 import { useEffect, useState } from "react";
+import { checkIsMobile } from "@/hooks/is-mobile";
 
 export default function PropertyPageClient({ property }) {
-  const router = useRouter();
+  // const router = useRouter();
   // const setPropertyId = usePropertyStore((state) => state.setPropertyId);
 
+  const isMobile = checkIsMobile()
   const g = useTranslations("Property");
 
   const [reviewScore, setReviewScore] = useState<number | null>(null);
@@ -51,8 +51,8 @@ export default function PropertyPageClient({ property }) {
   }, []);
   
   return (
-    <main className="flex space-x-5">
-      <div className="w-3/4">
+    <main className={`flex space-x-5 ${isMobile ? "flex-col space-y-4" : ""}`}>
+      <div className={ isMobile ? "w-full" : "w-3/4"}>
         <Image
           src={property.mainImage ? '/assets/' + property.mainImage : "/assets/placeholder.png"}
           alt="placeholder"
@@ -75,7 +75,7 @@ export default function PropertyPageClient({ property }) {
           <p>{property.slug}</p>
         </div>
       </div>
-      <aside className="w-1/4 h-screen relative">
+      <aside className={`h-screen relative ${isMobile ? "w-full" : "w-1/4"}`}>
         <div className="sticky top-0">
           <SearchFormProperty 
             propertyId = {property.id}
