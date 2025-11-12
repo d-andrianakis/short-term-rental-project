@@ -1,12 +1,13 @@
 "use client";
 
-import { useIsMobile } from "@/hooks/use-mobile"
+import { checkIsMobile } from "@/hooks/is-mobile"
+import { checkIsTablet } from "@/hooks/is-tablet"
 
 import { useTranslations } from 'next-intl';
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Search as SearchIcon } from 'lucide-react';
 
 import { TextAlignStartIcon } from '@/components/ui/icons/lucide-text-align-start';
@@ -38,7 +39,8 @@ export default function Header() {
     const mobileAccordionName = "mobile-search-accordion";
 
     const { theme, systemTheme } = useTheme();
-    const isMobile = useIsMobile()
+    const isMobile = checkIsMobile()
+    const isTablet = checkIsTablet()
 
     const currentTheme = theme === "system" ? systemTheme : theme;
 
@@ -114,7 +116,7 @@ export default function Header() {
         </header>
     );
 
-    // Desktop template (768px and up)
+    // Desktop template (1024px and up)
     const DesktopLayout = (
         <header className="p-4 bg-primary-foreground text-white">
             <div className="flex items-center container mx-auto">
@@ -134,5 +136,31 @@ export default function Header() {
         </header>
     );
 
-    return isMobile ? MobileLayout : DesktopLayout;
+    const TabletLayout = (
+        <header className="p-4 bg-primary-foreground text-white">
+            <div className="w-full mb-4 flex justify-center">
+                <div className="w-1/4">
+                    <ModeToggle />
+                </div>
+                <div className="w-1/2 flex justify-center">
+                    <Link href="/">
+                        <Image src={logoSrc} width={100} height={100} alt="logo" />
+                    </Link>
+                </div>
+                <div className="w-1/4 flex justify-end gap-2">
+                    <LanguageSwitcher />
+                </div>
+            </div>
+            <div className="flex mx-auto justify-center w-full">
+                <div className="w-3/4">
+                    <Search className="w-full flex justify-center"/>
+                </div>
+            </div>
+        </header>
+    );
+
+    // Serve layout by device
+    if (isMobile) return MobileLayout;
+    if (isTablet) return TabletLayout;
+    return DesktopLayout;
 }
