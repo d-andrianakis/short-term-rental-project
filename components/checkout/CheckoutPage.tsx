@@ -8,12 +8,16 @@ import {
 } from "@stripe/react-stripe-js";
 import convertToSubcurrency from "@/lib/convertToSubcurrency";
 
+import { checkIsMobile } from "@/hooks/is-mobile";
+
 const CheckoutPage = ({ amount }: { amount: number }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const isMobile = checkIsMobile();
 
   useEffect(() => {
     fetch("/api/create-payment-intent", {
@@ -79,7 +83,7 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white pl-2 rounded-md">
+    <form onSubmit={handleSubmit} className={`bg-white rounded-md ${isMobile ? "" : "pl-2"}`}>
       {clientSecret && <PaymentElement />}
 
       {errorMessage && <div>{errorMessage}</div>}
