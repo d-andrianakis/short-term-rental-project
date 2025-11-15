@@ -1,7 +1,6 @@
 'use client';
 
 import Image from "next/image";
-import { useRouter } from 'next/navigation';
 import { SearchFormProperty } from "@/components/ui/search-form property";
 
 import { useTranslations } from 'next-intl';

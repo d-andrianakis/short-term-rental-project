@@ -1,6 +1,9 @@
+"use client";
 import React from "react";
-import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
+
+import { useTheme } from "next-themes";
 
 interface Footer7Props {
   logo?: {
@@ -76,7 +79,17 @@ const Footer7 = ({
   copyright = "dandrianakis.eu",
   legalLinks = defaultLegalLinks,
 }: Footer7Props) => {
+  const { theme, systemTheme } = useTheme();
+
+  const currentTheme = theme === "system" ? systemTheme : theme;
+
+  const logoSrc =
+    currentTheme === "dark"
+      ? "/assets/common/logo-dark.png"
+      : "/assets/common/logo-light.png";
+
   return (
+    
     <section className="py-32 flex justify-center">
       <div className="container">
         <div className="flex w-full flex-col justify-between gap-10 lg:flex-row lg:items-start lg:text-left">
@@ -85,15 +98,13 @@ const Footer7 = ({
             <div className="flex items-center gap-2 lg:justify-start">
               <a href={logo.url}>
                 <Image
-                  width={50}
-                  height={50}
-                  src={logo.src}
+                  width={100}
+                  height={100}
+                  src={logoSrc}
                   alt={logo.alt}
                   title={logo.title}
-                  className="h-8"
                 />
               </a>
-              <h2 className="text-xl text-primary font-semibold">{logo.title}</h2>
             </div>
             <p className="text-muted-foreground max-w-[70%] text-sm">
               {description}
