@@ -2,8 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 function CardSkeleton() {
   return (
-    <div role="status" className="space-y-2">
-      <Skeleton className="h-8 w-1/3" />
+    <div role="status" className="space-y-2 mt-4">
       <Skeleton className="h-64 w-full" />
       <Skeleton className="h-4 w-2/3" />
       <Skeleton className="h-4 w-1/2" />

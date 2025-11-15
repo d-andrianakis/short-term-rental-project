@@ -3,12 +3,8 @@ import Image from "next/image";
 
 import {
   Card,
-  CardAction,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card"
 
 export default function PropertyCard({ property, idx }: { property: any, idx: string }) {
