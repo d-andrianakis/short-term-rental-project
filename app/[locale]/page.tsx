@@ -23,7 +23,7 @@ export default function Home() {
         </section>
 
         <section className="homepage-tabs mx-auto">
-          <Tabs defaultValue="city" className="w-[400px]">
+          <Tabs defaultValue="city" className="w-[400px] items-center">
             <TabsList>
               <TabsTrigger value="city">{t('title')}</TabsTrigger>
               <TabsTrigger value="quiet">Quiet Properties</TabsTrigger>

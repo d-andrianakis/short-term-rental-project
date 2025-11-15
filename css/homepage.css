@@ -4,3 +4,17 @@
 .homepage-hero-swiper .swiper-wrapper {
     @apply max-w-96;
 }
+
+.homepage-hero-swiper .swiper-button-prev,
+.homepage-hero-swiper .swiper-button-next {
+    @apply text-black rounded-full bg-white w-10 h-10 border border-solid border-black;
+}
+
+.homepage-hero-swiper .swiper-button-prev:after,
+.homepage-hero-swiper .swiper-button-next::after {
+    @apply absolute text-xl top-1/2 left-1/2 -translate-1/2 ;
+}
+
+.homepage-hero-swiper .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    @apply bg-black;
+}
