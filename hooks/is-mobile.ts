@@ -15,7 +15,7 @@ export function checkIsMobile() {
     const onChange = (e: MediaQueryListEvent | MediaQueryList) => {
       // MediaQueryListEvent has .matches, older MediaQueryList calls the same on some browsers
       // fallback to mql.matches if event is not provided
-      setIsMobile(typeof (e as any)?.matches === "boolean" ? (e as any).matches : mql.matches)
+      setIsMobile(typeof (e as data)?.matches === "boolean" ? (e as data).matches : mql.matches)
     }
 
     // set initial from the media query (covers cases where innerWidth differs)

@@ -53,7 +53,7 @@ export default function GoogleMapComponent({ locations }: GoogleMapProps) {
           <Map
             center={center}
             zoom={zoomLevel} // <-- control zoom on the Map
-            onZoomChanged={(event: any) => {
+            onZoomChanged={(event: data) => {
               // keep local state in sync when the user zooms via map controls/scroll
               const newZoom = event?.detail?.zoom;
               if (typeof newZoom === 'number') setZoomLevel(newZoom);

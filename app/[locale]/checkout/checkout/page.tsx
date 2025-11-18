@@ -34,7 +34,7 @@ export default function Checkout() {
 
   const isMobile = checkIsMobile(); //if this isn't declared here or after the useEffect, I get an error that says "React has detected a change in the oder of Hooks call by Checkout"
 
-  const [property, setProperty] = useState<any | null>(null);
+  const [property, setProperty] = useState<data | null>(null);
   const [loadingProperty, setLoadingProperty] = useState(true);
   
   async function fetchData() {

@@ -18,7 +18,7 @@ export function checkIsTablet() {
     )
 
     const onChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      setIsTablet(typeof (e as any)?.matches === "boolean" ? (e as any).matches : mql.matches)
+      setIsTablet(typeof (e as data)?.matches === "boolean" ? (e as data).matches : mql.matches)
     }
 
     // set initial from the media query (covers cases where innerWidth differs)

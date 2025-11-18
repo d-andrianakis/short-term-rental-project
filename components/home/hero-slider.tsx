@@ -12,7 +12,7 @@ import Image from "next/image";
 import HomeSlider from "@/components/common/loading/homeSlider";
 
 export default function App() {
-  const [heroImages, setHeroImages] = useState<any[]>([]);
+  const [heroImages, setHeroImages] = useState<data[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

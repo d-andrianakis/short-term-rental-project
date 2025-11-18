@@ -1,10 +1,10 @@
 import { loadSearchParams  } from './searchParams'
 
-export default async function getAvailableProperties(params: any, filter: any = null) {
+export default async function getAvailableProperties(params: data, filter: data = null) {
   // Accept either:
   // - the server-side searchParams Promise/object that nuqs provides, or
   // - a plain client-side params object { city, datetime, endtime, minPrice, maxPrice }
-  let parsed: any = params
+  let parsed: data = params
 
   // if a Promise (server-provided), await it
   if (params && typeof params.then === 'function') {

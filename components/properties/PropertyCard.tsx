@@ -7,7 +7,7 @@ import {
   CardHeader,
 } from "@/components/ui/card"
 
-export default function PropertyCard({ property, idx }: { property: any, idx: string }) {
+export default function PropertyCard({ property, idx }: { property: data, idx: string }) {
   return (
     <div key={`property-${idx}`}>
       <Link href={`/properties/property/${property.property?.slug ?? idx}`}>

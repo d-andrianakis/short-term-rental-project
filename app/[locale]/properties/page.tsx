@@ -36,7 +36,7 @@ export default function SearchBar({ searchParams }: PageProps) {
     const g = useTranslations("Global");
     const t = useTranslations("Properties");
 
-    const [availableProperties, setAvailableProperties] = useState<any[] | null>(null);
+    const [availableProperties, setAvailableProperties] = useState<data[] | null>(null);
     const [loading, setLoading] = useState(false)
 
     // read current query params on the client so values are always up-to-date
@@ -132,7 +132,7 @@ export default function SearchBar({ searchParams }: PageProps) {
           <Loading />
         ) : Array.isArray(availableProperties) && availableProperties.length > 0 ? (
           <div className="grid gap-4 grid-cols-1 my-5 md:grid-cols-2 xl:grid-cols-3">
-            {availableProperties.map((prop: any, idx: number) => (
+            {availableProperties.map((prop: data, idx: number) => (
               <PropertyCard 
               property={prop} 
               idx={Math.random().toString(36).slice(2)} 
