@@ -12,6 +12,14 @@ import { hasLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
 import { notFound } from "next/navigation";
 
+interface PropertyPageProps {
+  params: {
+    slug: string;
+    locale: string; // if you always expect locale
+  };
+}
+
+
 
 export async function generateMetadata(
   { params }: { params: { locale: string; slug: string } }
@@ -39,11 +47,7 @@ export async function generateMetadata(
   }
 }
 
-export default async function PropertyPage({
-  params,
-}: {
-  params: { slug: string; locale?: string };
-}) {
+export default function PropertyPage({ params }: PropertyPageProps) {
   const { slug } = params;
 
   return (
