@@ -13,9 +13,9 @@ import { routing } from '@/i18n/routing';
 import { notFound } from "next/navigation";
 
 interface PropertyPageProps {
-  params: {
-    slug: string;
-    locale: string; // if you always expect locale
+  params?: {
+    slug?: string;
+    locale?: string;
   };
 }
 
