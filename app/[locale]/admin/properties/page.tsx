@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import RemovePropertyButton from "@/components/admin/removePropertyButton";
 
 export default function PropertiesTableClient() {
-  const [properties, setProperties] = useState<any[]>([]);
+  const [properties, setProperties] = useState<data[]>([]);
 
   async function fetchData() {
     const res = await fetch("/api/properties");
