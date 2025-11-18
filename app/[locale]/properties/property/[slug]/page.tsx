@@ -14,11 +14,10 @@ import { notFound } from "next/navigation";
 
 
 export async function generateMetadata(
-  { params }: { params: { locale:string, slug: string } }
+  { params }: { params: { locale: string; slug: string } }
 ): Promise<Metadata> {
-  const awaitedParams = await params;
-  const slugParam = awaitedParams.slug;
-  const locale = awaitedParams.locale;
+  const slugParam = params.slug;
+  const locale = params.locale;
 
   if (!hasLocale(routing.locales, locale)) {
     return notFound();
@@ -26,9 +25,13 @@ export async function generateMetadata(
 
   const propertyData = await db.select().from(property).where(eq(property.slug, slugParam));
 
+  if (!propertyData || propertyData.length === 0) {
+    return notFound();
+  }
+
   return {
-    title: propertyData[0].name, // Dynamic title
-    description: propertyData[0].name, // Optional meta description
+    title: propertyData[0].name,
+    description: propertyData[0].name,
     openGraph: {
       title: propertyData[0].name,
       description: propertyData[0].name,
@@ -39,16 +42,12 @@ export async function generateMetadata(
 export default async function PropertyPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string; locale?: string };
 }) {
-  const { slug } = await params;
+  const { slug } = params;
 
   return (
-    <Suspense
-      fallback={
-        <Loading />
-      }
-    >
+    <Suspense fallback={<Loading />}>
       <PropertyData slug={slug} />
     </Suspense>
   );
