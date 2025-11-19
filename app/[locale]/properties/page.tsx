@@ -26,13 +26,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-type PageProps = {
-  // accept the Next.js page props shape (optional params) and make searchParams more flexible
-  params?: { slug?: string; locale?: string }
-  searchParams?: SearchParams | Record<string, data> | Promise<SearchParams>
-}
-
-export default function SearchBar({ searchParams }: PageProps) {
+export default function SearchBar() {
     const isMobile = useIsMobile()
 
     const g = useTranslations("Global");
