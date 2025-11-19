@@ -13,25 +13,25 @@ import { routing } from '@/i18n/routing';
 import { notFound } from "next/navigation";
 
 interface PropertyPageProps {
-  params?: {
-    slug?: string;
-    locale?: string;
+  params: {
+    slug: string;
+    locale: string;
   };
 }
 
-
-
 export async function generateMetadata(
-  { params }: { params: { locale: string; slug: string } }
+  { params }: PropertyPageProps
 ): Promise<Metadata> {
-  const slugParam = params.slug;
-  const locale = params.locale;
+  const { locale, slug } = params;
 
   if (!hasLocale(routing.locales, locale)) {
     return notFound();
   }
 
-  const propertyData = await db.select().from(property).where(eq(property.slug, slugParam));
+  const propertyData = await db
+    .select()
+    .from(property)
+    .where(eq(property.slug, slug));
 
   if (!propertyData || propertyData.length === 0) {
     return notFound();
@@ -44,15 +44,13 @@ export async function generateMetadata(
       title: propertyData[0].name,
       description: propertyData[0].name,
     },
-  }
+  };
 }
 
 export default function PropertyPage({ params }: PropertyPageProps) {
-  const { slug } = params;
-
   return (
     <Suspense fallback={<Loading />}>
-      <PropertyData slug={slug} />
+      <PropertyData slug={params.slug} />
     </Suspense>
   );
 }
