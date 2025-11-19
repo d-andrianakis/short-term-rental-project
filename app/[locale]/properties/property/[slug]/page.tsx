@@ -21,7 +21,7 @@ interface PropertyPageProps {
 
 export async function generateMetadata(
   { params }: PropertyPageProps
-): Promise<Metadata> {
+) {
   const { locale, slug } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
