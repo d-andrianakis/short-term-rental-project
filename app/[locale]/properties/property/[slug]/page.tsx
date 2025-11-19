@@ -12,8 +12,8 @@ import { notFound } from "next/navigation";
 
 interface PropertyPageProps {
   params: {
-    slug: Promise<string>;
-    locale: Promise<string>;
+    slug: string;
+    locale: string;
   };
 }
 
