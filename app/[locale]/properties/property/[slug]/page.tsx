@@ -12,15 +12,15 @@ import { notFound } from "next/navigation";
 
 interface PropertyPageProps {
   params: {
-    slug: string;
-    locale: string;
+    slug: Promise<string>;
+    locale: Promise<string>;
   };
 }
 
 export async function generateMetadata(
   { params }: PropertyPageProps
 ) {
-  const { locale, slug } = params;
+  const { locale, slug } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
     return notFound();
@@ -46,7 +46,7 @@ export async function generateMetadata(
 }
 
 export default async function Page({ params }) {
-  const { slug } = params;
+  const { slug } = await params;
 
   return (
     <Suspense fallback={<Loading />}>
@@ -54,4 +54,3 @@ export default async function Page({ params }) {
     </Suspense>
   );
 }
-
