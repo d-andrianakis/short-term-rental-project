@@ -6,8 +6,6 @@ import React, { Suspense } from "react";
 import PropertyData from "@/components/properties/property/PropertyData";
 import Loading from "./loading";
 
-import { Metadata } from 'next';
-
 import { hasLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
 import { notFound } from "next/navigation";
@@ -22,7 +20,7 @@ interface PropertyPageProps {
 export async function generateMetadata(
   { params }: PropertyPageProps
 ) {
-  const { locale, slug } = await params;
+  const { locale, slug } = params;
 
   if (!hasLocale(routing.locales, locale)) {
     return notFound();
@@ -48,7 +46,7 @@ export async function generateMetadata(
 }
 
 export default async function Page({ params }) {
-  const { slug } = await params;
+  const { slug } = params;
 
   return (
     <Suspense fallback={<Loading />}>
@@ -56,3 +54,4 @@ export default async function Page({ params }) {
     </Suspense>
   );
 }
+
