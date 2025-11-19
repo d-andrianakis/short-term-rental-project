@@ -22,7 +22,7 @@ interface PropertyPageProps {
 export async function generateMetadata(
   { params }: PropertyPageProps
 ): Promise<Metadata> {
-  const { locale, slug } = params;
+  const { locale, slug } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
     return notFound();
@@ -47,10 +47,12 @@ export async function generateMetadata(
   };
 }
 
-export default function PropertyPage({ params }: PropertyPageProps) {
+export default async function Page({ params }) {
+  const { slug } = await params;
+
   return (
     <Suspense fallback={<Loading />}>
-      <PropertyData slug={params.slug} />
+      <PropertyData slug={slug} />
     </Suspense>
   );
 }
