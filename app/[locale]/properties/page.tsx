@@ -8,8 +8,6 @@ import {useTranslations} from 'next-intl';
 
 import getAvailableProperties from './get-available-properties';
 
-import type { SearchParams } from 'nuqs/server'
-
 import Filters from '@/components/properties/filters';
 import Loading from "./loading";
 import PropertyCard from "@/components/properties/PropertyCard";

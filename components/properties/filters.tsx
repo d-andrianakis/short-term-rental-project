@@ -23,7 +23,6 @@ type FiltersProps = {
 
 export default function Filters({ onFilter, loading, properties }: FiltersProps) {
   const g = useTranslations("Global");
-  const t = useTranslations("Properties");
 
   const [value, setValue] = useState([0, 100])
 

@@ -1,12 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useQueryState } from "nuqs";
 import { useRouter } from "next/navigation";
 
 import { useTranslations } from 'next-intl';
 
-import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { CalendarDays } from 'lucide-react';
@@ -34,8 +32,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Search } from 'lucide-react';
-import { toast } from "sonner";
  
 const FormSchema = z.object({
   time: z.date({

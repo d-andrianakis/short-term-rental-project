@@ -1,6 +1,5 @@
 'use client';
 
-import { useParams } from 'next/navigation'
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';

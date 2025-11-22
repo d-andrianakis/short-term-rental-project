@@ -6,8 +6,6 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
-import { Button } from "@/components/ui/button";
-
 export default function SettingsMenu() {
   return (
     <ul>
