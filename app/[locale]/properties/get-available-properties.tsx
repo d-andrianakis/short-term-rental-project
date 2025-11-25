@@ -1,5 +1,3 @@
-import { loadSearchParams  } from './searchParams'
-
 type SearchParams = {
   city?: string;
   datetime?: string;
@@ -22,11 +20,7 @@ export default async function getAvailableProperties(
     parsed = await params
   }
 
-  let city, datetime, endtime, minPrice, maxPrice
-  
-  // Always use the parsed params directly - don't call loadSearchParams
-  // since it expects a different input type
-  ({ city, datetime, endtime, minPrice, maxPrice } = parsed)
+  const { city, datetime, endtime, minPrice, maxPrice } = parsed
   
   if (city && datetime && endtime) {
     try {
