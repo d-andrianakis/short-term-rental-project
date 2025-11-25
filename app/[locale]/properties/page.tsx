@@ -45,18 +45,24 @@ export default function SearchBar() {
     }, [city, datetime, endtime, minPrice, maxPrice]) // reload when any query param changes
   
     const loadAvailableProperties = async (filter?: string) => {
-      try {
-        setLoading(true)
-        // pass a plain params object built from current query state
-        const params = { city, datetime, endtime, minPrice, maxPrice }
-        const items = await getAvailableProperties(params, filter)
-        setAvailableProperties(items)
-      } catch (error) {
-        console.error("Failed to load gallery items:", error)
-      } finally {
-        setLoading(false)
-      }
+  try {
+    setLoading(true)
+    // Convert string values to numbers, handling undefined cases
+    const params = { 
+      city, 
+      datetime, 
+      endtime, 
+      minPrice: minPrice ? Number(minPrice) : undefined,
+      maxPrice: maxPrice ? Number(maxPrice) : undefined
     }
+    const items = await getAvailableProperties(params, filter)
+    setAvailableProperties(items)
+  } catch (error) {
+    console.error("Failed to load gallery items:", error)
+  } finally {
+    setLoading(false)
+  }
+}
 
     const locations = [
       { lat: 37.7749, lng: -122.4194, name: 'San Francisco' },
