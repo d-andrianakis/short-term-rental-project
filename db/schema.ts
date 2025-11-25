@@ -1,17 +1,14 @@
-import { decimal } from "drizzle-orm/gel-core";
 import {
   pgTable,
   text,
   timestamp,
   boolean,
   integer,
-  smallint,
   serial,
   real,
   varchar,
   numeric
 } from "drizzle-orm/pg-core";
-import { Varta } from "next/font/google";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
