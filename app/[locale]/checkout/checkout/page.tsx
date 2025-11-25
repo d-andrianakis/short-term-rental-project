@@ -119,7 +119,7 @@ export default function Checkout() {
             >
                 <CheckoutPage amount={total} />
             </Elements>
-                ) : (
+              ) : (
                 <p>Loading</p>
               )}
       </div>
