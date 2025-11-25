@@ -30,7 +30,7 @@ export default function SearchBar() {
     const g = useTranslations("Global");
     const t = useTranslations("Properties");
 
-    const [availableProperties, setAvailableProperties] = useState<data[] | null>(null);
+    const [availableProperties, setAvailableProperties] = useState<null>(null);
     const [loading, setLoading] = useState(false)
 
     // read current query params on the client so values are always up-to-date

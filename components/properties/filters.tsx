@@ -27,7 +27,7 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
   const [value, setValue] = useState([0, 100])
 
   const [data, setData] = useState([]);
-  const [attributes, setAttributes] = useState<data[]>([]);
+  const [attributes, setAttributes] = useState([]);
 
   // slider min/max derived from property prices
   const [sliderMin, setSliderMin] = useState<number>(0);
