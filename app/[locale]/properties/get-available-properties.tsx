@@ -8,6 +8,10 @@ type SearchParams = {
   maxPrice?: number;
 }
 
+function isPromise<T>(value: unknown): value is Promise<T> {
+  return value !== null && typeof value === 'object' && 'then' in value && typeof (value as Record<string, unknown>).then === 'function';
+}
+
 export default async function getAvailableProperties(
   params: SearchParams | Promise<SearchParams>, 
   filter: string | null = null
@@ -17,7 +21,7 @@ export default async function getAvailableProperties(
   // - a plain client-side params object { city, datetime, endtime, minPrice, maxPrice }
   let parsed: SearchParams = params as SearchParams
   // if a Promise (server-provided), await it
-  if (params && typeof (params as any).then === 'function') {
+  if (isPromise<SearchParams>(params)) {
     parsed = await params
   }
   // If parsed already contains the expected keys use them directly,
