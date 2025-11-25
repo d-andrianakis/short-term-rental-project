@@ -1,20 +1,19 @@
 import { db } from "@/db/drizzle";
 import { eq } from "drizzle-orm";
 import { property } from "@/db/schema";
-
 import React, { Suspense } from "react";
 import PropertyData from "@/components/properties/property/PropertyData";
 import Loading from "./loading";
-
 import { hasLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
 import { notFound } from "next/navigation";
 
+// Fixed interface - params is now a Promise
 interface PropertyPageProps {
-  params: {
+  params: Promise<{
     slug: string;
     locale: string;
-  };
+  }>;
 }
 
 export async function generateMetadata(
@@ -45,7 +44,8 @@ export async function generateMetadata(
   };
 }
 
-export default async function Page({ params }) {
+// Added proper typing for the Page component
+export default async function Page({ params }: PropertyPageProps) {
   const { slug } = await params;
 
   return (
