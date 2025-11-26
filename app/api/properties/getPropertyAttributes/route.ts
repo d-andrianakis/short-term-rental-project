@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     let query = db
       .select({ propertyId: propery_attributes.propertyId, value: propery_attributes.value, text: propery_attributes.text, filterType : propery_attributes.filterType })
       .from(propery_attributes)
-      .where(eq(propery_attributes.filterable, 1));
+      .where(eq(propery_attributes.filterable, true));
 
     if (availablePropertyIdsArray.length > 0) {
       query = query.where(inArray(propery_attributes.propertyId, availablePropertyIdsArray));
