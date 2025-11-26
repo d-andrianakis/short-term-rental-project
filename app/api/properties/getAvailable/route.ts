@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
         )
     );
 
-    const conflictingIds = conflicting.map(c => c.propertyId);
+    const conflictingIds = conflicting.map(c => String(c.propertyId));
 
     if (minPrice && minPrice !== undefined) {
       whereConditions.push(gte(property.pricePerNight, minPrice));
