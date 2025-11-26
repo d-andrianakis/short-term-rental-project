@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
   const filterBy = searchParams.get('filterBy') ?? null;
   const minPrice = searchParams.get('minPrice') ?? null;
   const maxPrice = searchParams.get('maxPrice') ?? null;
-  const whereConditions: data[] = [];
+  const whereConditions = [];
 
   function toTimestamp(datetime: string | Date): number {
     return new Date(datetime).getTime();
