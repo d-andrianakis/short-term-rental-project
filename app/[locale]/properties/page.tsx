@@ -132,11 +132,11 @@ export default function SearchBar() {
           <Loading />
         ) : Array.isArray(availableProperties) && availableProperties.length > 0 ? (
           <div className="grid gap-4 grid-cols-1 my-5 md:grid-cols-2 xl:grid-cols-3">
-            {availableProperties.map((prop: data, idx: number) => (
+            {availableProperties.map((prop, idx: number) => (
               <PropertyCard 
-              property={prop} 
-              idx={Math.random().toString(36).slice(2)} 
-              key = {`property-${idx}`}
+                property={prop} 
+                idx={Math.random().toString(36).slice(2)} 
+                key={`property-${idx}`}
               />
             ))}
           </div>
