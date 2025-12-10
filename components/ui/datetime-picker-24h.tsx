@@ -28,8 +28,8 @@ import { Search } from 'lucide-react';
 import { toast } from "sonner";
  
 const FormSchema = z.object({
-  time: z.date({
-    required_error: "A date and time is required.",
+  time: z.date().refine((val) => !!val, {
+    message: "A date and time is required.",
   }),
 });
  

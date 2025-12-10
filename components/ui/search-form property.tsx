@@ -35,10 +35,10 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
  
 const FormSchema = z.object({
   time: z.date({
-    required_error: "A date and time is required.",
+    message: "A date and time is required.",
   }),
   endtime: z.date({
-    required_error: "An end date and time is required.",
+    message: "An end date and time is required.",
   }),
   }).refine(
   (data) => data.endtime >= data.time,
