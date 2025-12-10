@@ -1,4 +1,4 @@
-import type { GalleryItem, CreateGalleryItemInput, UpdateGalleryItemInput } from "./types"
+import type { GalleryItem, CreateGalleryItemInput, UpdateGalleryItemInput } from "./gallery-types"
 
 // Mock database storage
 const mockGalleryItems: GalleryItem[] = [
