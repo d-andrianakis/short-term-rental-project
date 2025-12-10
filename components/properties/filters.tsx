@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { useQueryState } from 'nuqs';
+import { parseAsInteger } from 'nuqs';
 
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -48,8 +49,14 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
   const [sliderMax, setSliderMax] = useState<number>(100);
 
   const [propertyType, setPropertyType] = useQueryState("propertyType", { defaultValue: "" });
-  const [minPrice, setMinPrice] = useQueryState("minPrice", { defaultValue: 0 });
-  const [maxPrice, setMaxPrice] = useQueryState("maxPrice", { defaultValue: 0 });
+  const [minPrice, setMinPrice] = useQueryState(
+    'minPrice',
+    parseAsInteger.withDefault(0)
+  );
+  const [maxPrice, setMaxPrice] = useQueryState(
+    'maxPrice',
+    parseAsInteger.withDefault(0)
+  );
 
   // new state to control radio selection so items that share the same value
   // will all appear selected when that value is chosen
