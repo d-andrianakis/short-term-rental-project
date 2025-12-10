@@ -18,16 +18,30 @@ import { useEffect, useState } from "react";
 type FiltersProps = {
   loading: boolean;
   onFilter: (filter?: string) => void;
-  properties:data // callback to parent
+  properties: Property[]; // Use the Property type defined below
+};
+type Attribute = {
+  id?: string;
+  propertyId?: string;
+  text: string;
+  value: string | number;
+  filterType: "radio" | string;
+  placeholder?: string;
 };
 
+type Property = {
+  id: string;
+  property?: {
+    pricePerNight?: number;
+  };
+};
 export default function Filters({ onFilter, loading, properties }: FiltersProps) {
   const g = useTranslations("Global");
 
   const [value, setValue] = useState([0, 100])
 
-  const [data, setData] = useState([]);
-  const [attributes, setAttributes] = useState([]);
+  const [data, setData] = useState<Property[]>([]);
+  const [attributes, setAttributes] = useState<Attribute[]>([]);
 
   // slider min/max derived from property prices
   const [sliderMin, setSliderMin] = useState<number>(0);
@@ -69,7 +83,7 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
         const data = await result.json();
 
         if (Array.isArray(data) && data.length) {
-          setAttributes(data);
+          setAttributes(data as Attribute[]);
         } else {
           setAttributes([]);
         }
@@ -88,7 +102,7 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
     // TODO: refactor code so that the min-max prices don't come from the available properties but insted they come from the properties available on the specified dates
     const prices = Array.isArray(properties)
       ? properties
-          .map((item: data) => Number(item?.property?.pricePerNight))
+          .map((item: Property) => Number(item?.property?.pricePerNight))
           .filter((n: number) => !Number.isNaN(n))
       : [];
 
@@ -120,8 +134,8 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
           {
             attributes.length > 0 && (() => {
               // separate radio-type attributes from others
-              const radioAttrs = attributes.filter((a: data) => a?.filterType === "radio");
-              const otherAttrs = attributes.filter((a: data) => a?.filterType !== "radio");
+              const radioAttrs = attributes.filter((a) => a?.filterType === "radio");
+              const otherAttrs = attributes.filter((a) => a?.filterType !== "radio");
 
               return (
                 <>
@@ -134,7 +148,7 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
                       setPropertyTypeFilter(v);
                       onFilter(v);
                     }}>
-                      {radioAttrs.map((item: data) => {
+                      {radioAttrs.map((item) => {
                         const key = item.propertyId ?? item.text ?? Math.random().toString(36).slice(2);
 
                         return (
@@ -149,7 +163,7 @@ export default function Filters({ onFilter, loading, properties }: FiltersProps)
                     </RadioGroup>
                   )}
 
-                  {otherAttrs.map((item: data) => {
+                  {otherAttrs.map((item) => {
                     const key = item.id ?? item.text ?? Math.random().toString(36).slice(2);
 
                     return (
