@@ -29,9 +29,8 @@ export default function PropertyPageClient({ property }) {
 
       const data = await res.json();
 
-      let score = '';
+      let score: number | null = null;
       if (data) {
-        score = data ?? null;
         score = parseFloat(data);
         score = parseFloat(score.toFixed(2));
       }      
