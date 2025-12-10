@@ -38,16 +38,14 @@ import { Search } from 'lucide-react';
 import { toast } from "sonner";
  
 const FormSchema = z.object({
-  // city: z.string({
-  //   required_error: "A city is required",
-  // }),
+  city: z.string().optional(),
   time: z.date({
-    required_error: "A date and time is required.",
+    message: "A date and time is required.",
   }),
   endtime: z.date({
-    required_error: "An end date and time is required.",
+    message: "An end date and time is required.",
   }),
-  }).refine(
+}).refine(
   (data) => data.endtime >= data.time,
   {
     message: "End time must be after start time.",
