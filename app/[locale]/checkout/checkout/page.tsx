@@ -18,8 +18,6 @@ import { CalendarX2 } from 'lucide-react';
 
 import Image from "next/image";
 
-// import { checkIsMobile } from "@/hooks/is-mobile";
-
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
   throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
 }
@@ -31,8 +29,6 @@ export default function Checkout() {
   const propertyId = usePropertyStore((state) => state.propertyId);
   const fromDate = usePropertyStore((state) => state.fromDate);
   const toDate = usePropertyStore((state) => state.toDate);
-
-  // const isMobile = checkIsMobile(); //if this isn't declared here or after the useEffect, I get an error that says "React has detected a change in the oder of Hooks call by Checkout"
 
   const [property, setProperty] = useState(null);
   const [loadingProperty, setLoadingProperty] = useState(true);
