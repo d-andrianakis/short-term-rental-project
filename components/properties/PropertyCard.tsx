@@ -7,6 +7,19 @@ import {
   CardHeader,
 } from "@/components/ui/card"
 
+// Define the 'data' type or import it from the correct location
+type data = {
+  property: {
+    slug?: string;
+    mainImage?: string;
+    name?: string;
+    pricePerNight?: number;
+  };
+  properties: {
+    city?: string;
+  };
+};
+
 export default function PropertyCard({ property, idx }: { property: data, idx: string }) {
   return (
     <div key={`property-${idx}`}>
