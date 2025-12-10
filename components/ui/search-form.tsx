@@ -154,7 +154,7 @@ export function SearchForm({ className = "" }: SearchFormProps) {
         <FormField
           control={form.control}
           name="city"
-          render={({ field }) => (
+          render={() => (
             <FormItem className="w-full">
               <FormLabel className="text-primary">{ g('city') }</FormLabel>
               <FormControl>

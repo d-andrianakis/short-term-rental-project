@@ -8,9 +8,9 @@ export async function POST(request: NextRequest) {
 
     const data = await request.json();
 
-    const propertyId: number[] = data;
+    const propertyId = Number(data);
 
-    if (propertyId) {
+    if (Number.isFinite(propertyId)) {
         const query = db.select({ numeric: avg(property_reviews.overallScore) })
         .from(property_reviews)
         .where(
