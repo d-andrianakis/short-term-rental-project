@@ -3,7 +3,7 @@ import * as React from "react"
 const MOBILE_BREAKPOINT = 768
 const TABLET_BREAKPOINT = 1024
 
-export function checkIsTablet() {
+export function useIsTablet() {
   const isClient = typeof window !== "undefined"
   const getInitial = () =>
     isClient ? window.innerWidth >= MOBILE_BREAKPOINT && window.innerWidth < TABLET_BREAKPOINT : false
@@ -18,7 +18,7 @@ export function checkIsTablet() {
     )
 
     const onChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      setIsTablet(typeof (e as data)?.matches === "boolean" ? (e as data).matches : mql.matches)
+      setIsTablet(typeof (e as MediaQueryListEvent)?.matches === "boolean" ? (e as MediaQueryListEvent).matches : mql.matches)
     }
 
     // set initial from the media query (covers cases where innerWidth differs)

@@ -2,7 +2,7 @@ import * as React from "react"
 
 const MOBILE_BREAKPOINT = 768
 
-export function checkIsMobile() {
+export function useIsMobile() {
   const isClient = typeof window !== "undefined"
   const getInitial = () => (isClient ? window.innerWidth < MOBILE_BREAKPOINT : false)
 
@@ -15,7 +15,7 @@ export function checkIsMobile() {
     const onChange = (e: MediaQueryListEvent | MediaQueryList) => {
       // MediaQueryListEvent has .matches, older MediaQueryList calls the same on some browsers
       // fallback to mql.matches if event is not provided
-      setIsMobile(typeof (e as data)?.matches === "boolean" ? (e as data).matches : mql.matches)
+      setIsMobile(typeof (e as MediaQueryListEvent)?.matches === "boolean" ? (e as MediaQueryListEvent).matches : mql.matches)
     }
 
     // set initial from the media query (covers cases where innerWidth differs)
