@@ -2,10 +2,10 @@
 
 import { Skeleton } from "@/components/ui/skeleton";
 
-import { checkIsMobile } from "@/hooks/is-mobile";
+import { useIsMobile } from "@/hooks/is-mobile";
 
 export default function Loading() {
-  const isMobile = checkIsMobile();
+  const isMobile = useIsMobile();
   return (
     <div className={`flex space-x-5 ${isMobile ? "flex-col space-y-4" : ""}`}>
       <div className={ isMobile ? "w-full" : "w-3/4 space-y-3"}>

@@ -7,13 +7,13 @@ import { useTranslations } from 'next-intl';
 
 // import { usePropertyStore } from "@/store/usePropertyStore";
 import { useEffect, useState } from "react";
-import { checkIsMobile } from "@/hooks/is-mobile";
+import { useIsMobile } from "@/hooks/is-mobile";
 
 export default function PropertyPageClient({ property }) {
   // const router = useRouter();
   // const setPropertyId = usePropertyStore((state) => state.setPropertyId);
 
-  const isMobile = checkIsMobile()
+  const isMobile = useIsMobile()
   const g = useTranslations("Property");
 
   const [reviewScore, setReviewScore] = useState<number | null>(null);

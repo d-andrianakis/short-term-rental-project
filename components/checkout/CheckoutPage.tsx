@@ -8,7 +8,7 @@ import {
 } from "@stripe/react-stripe-js";
 import convertToSubcurrency from "@/lib/convertToSubcurrency";
 
-import { checkIsMobile } from "@/hooks/is-mobile";
+import { useIsMobile } from "@/hooks/is-mobile";
 
 const CheckoutPage = ({ amount }: { amount: number }) => {
   const stripe = useStripe();
@@ -17,7 +17,7 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
   const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const isMobile = checkIsMobile();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     fetch("/api/create-payment-intent", {

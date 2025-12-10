@@ -1,7 +1,7 @@
 "use client";
 
-import { checkIsMobile } from "@/hooks/is-mobile"
-import { checkIsTablet } from "@/hooks/is-tablet"
+import { useIsMobile } from "@/hooks/is-mobile"
+import { useIsTablet } from "@/hooks/is-tablet"
 
 import { useTranslations } from 'next-intl';
 import Link from "next/link";
@@ -39,8 +39,8 @@ export default function Header() {
     const mobileAccordionName = "mobile-search-accordion";
 
     const { theme, systemTheme } = useTheme();
-    const isMobile = checkIsMobile()
-    const isTablet = checkIsTablet()
+    const isMobile = useIsMobile()
+    const isTablet = useIsTablet()
 
     const currentTheme = theme === "system" ? systemTheme : theme;
 
